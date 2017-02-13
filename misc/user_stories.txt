@@ -1,0 +1,11 @@
+As a User, I want to be able to register an account, so that I can begin contributing to the crowd source of this application
+As a User, I want to be able to find clean water sources, so that we can have easy access to clean water
+As a User, I want to be able to submit water sources as I find them, so that I can help others find access to clean water
+As a User, I want to be able to logout from my account, so that I can keep my account secure
+As a Worker, I want to be able to report on water purity levels, so that Users can assess the quality of water that they may be using
+As a Manager, I want to view historical reports and trends of water purity over time, so that I can analyze events and trends to better support the system
+As a Manager, I want to delete inaccurate reports, so that I can maintain an accurate system
+As an Administrator, I want to be able unlock someone’s account, so that they can access their account in the event that they lock themselves out
+As an Administrator, I want to be able to view security logs, so that I can maintain integrity of the other users, including workers and managers
+As an Administrator, I want to be able to delete any accounts, so that I can maintain accuracy and prevent inaccurate reporting
+As an Administrator, I want to ban a user from submitting reports, so that I can maintain integrity in the accuracy of the reports
