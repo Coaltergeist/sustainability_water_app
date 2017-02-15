@@ -1,4 +1,4 @@
-package edu.gatech.a2340finalproject;
+package edu.gatech.sustainability;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
