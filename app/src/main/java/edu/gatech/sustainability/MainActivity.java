@@ -18,6 +18,10 @@ public class MainActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.welcomeTextView)).setText("Welcome, " + username);
     }
 
+    /**
+     * Button action for logging out. Clear user and return to splash/login screen
+     * @param view View this was done from
+     */
     public void logout(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);

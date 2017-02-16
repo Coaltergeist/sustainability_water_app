@@ -24,6 +24,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Login method to check for username and passwords
+     * @param view View this was done from
+     */
     public void login(View view) {
         EditText usernameText = (EditText) findViewById(R.id.usernameText);
         EditText passwordText = (EditText) findViewById(R.id.passwordText);
@@ -37,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                     .setTitle("Invalid login credentials")
                     .setMessage("Your login details are incorrect")
                     .setPositiveButton("Retry", (dialogInterface, i) -> {
+                        // Backout of confirmation box, increment a counter to lockout users
                     })
                     .setNegativeButton("Register", (dialogInterface, i) -> {
                         // Registration stuff
