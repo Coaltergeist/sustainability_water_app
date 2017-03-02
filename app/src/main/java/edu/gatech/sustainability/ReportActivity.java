@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,19 +18,15 @@ import java.util.Set;
 import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.Report;
 import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.User;
 
-public class MainActivity extends AppCompatActivity {
+public class ReportActivity extends AppCompatActivity  {
 
-    public static Map<Integer, User> userSet = new HashMap<>();
-    public static User currentUser;
-    public ArrayList<Report> reportList = new ArrayList<>();
+    ArrayList<Report> reportList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_report);
         Intent intent = getIntent();
-        if (currentUser == null)
-            currentUser = userSet.get(intent.getIntExtra("userId", -1));
-        ((TextView) findViewById(R.id.welcomeTextView)).setText("Welcome, " + currentUser.getUsername());
         int j = (Integer)intent.getSerializableExtra("reportNum");
         if (j > 0) {
             for (int i = 0; i < j; i++) {
@@ -38,23 +35,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Button action for logging out. Clear user and return to splash/login screen
-     * @param view View this was done from
-     */
-    public void logout(View view) {
-        currentUser = null;
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    public void viewProfile(View view) {
-        Intent intent = new Intent(this, ProfileActivity.class);
-        startActivity(intent);
-    }
-
-    public void startReport(View view) {
-        Intent intent = new Intent(this, ReportActivity.class);
+    public void cancelReport(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("reportNum", reportList.size());
         if(reportList.size() > 0) {
             for(int k = 0; k < reportList.size(); k++) {
@@ -64,15 +46,21 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showReports(View view) {
-        String printable = "";
-        for (int i = 0; i < reportList.size(); i++) {
-            printable += (reportList.get(i)).toString() + "\n";
-        }
+    public void submitReport(View view) {
+        String name = ((EditText) findViewById(R.id.nameText)).getText().toString();
+        String longitude1 = ((EditText) findViewById(R.id.longText)).getText().toString();
+        String latitude1 = ((EditText) findViewById(R.id.latText)).getText().toString();
+        double longitude = Double.parseDouble(longitude1);
+        double latitude = Double.parseDouble(latitude1);
+        String condition = ((EditText) findViewById(R.id.conditionText)).getText().toString();
+        String waterType = ((EditText) findViewById(R.id.typeText)).getText().toString();
+        Report report = new Report(name, longitude, latitude, condition, waterType);
+        reportList.add(report);
+
         new AlertDialog.Builder(this)
-                .setTitle("Reports Submitted:")
-                .setMessage(printable)
-                .setPositiveButton("close", (dialogInterface, i) -> {
+                .setTitle("Report Submitted")
+                .setMessage("Thank you")
+                .setPositiveButton("Back", (dialogInterface, i) -> {
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra("reportNum", reportList.size());
                     if(reportList.size() > 0) {

@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
                     && passwordText.getText().toString().equalsIgnoreCase(password)) {
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("userId", entry.getKey());
+                intent.putExtra("reportNum", 0);
                 startActivity(intent);
                 return;
             }
