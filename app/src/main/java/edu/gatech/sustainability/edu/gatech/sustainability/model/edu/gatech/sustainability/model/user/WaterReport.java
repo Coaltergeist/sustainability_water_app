@@ -6,7 +6,7 @@ package edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sus
 import java.io.Serializable;
 
 @SuppressWarnings("serial") //With this annotation we are going to hide compiler warnings
-public class Report implements Serializable{
+public class WaterReport implements Serializable{
     private String name;
     private double longitude;
     private double latitude;
@@ -16,7 +16,7 @@ public class Report implements Serializable{
     /**
      * Default no-arg constructor
      */
-    public Report() {
+    public WaterReport() {
 
     }
 
@@ -28,8 +28,8 @@ public class Report implements Serializable{
      * @param condition
      * @param waterType
      */
-    public Report(String name, double longitude, double latitude,
-                  String condition, String waterType) {
+    public WaterReport(String name, double longitude, double latitude,
+                       String condition, String waterType) {
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;

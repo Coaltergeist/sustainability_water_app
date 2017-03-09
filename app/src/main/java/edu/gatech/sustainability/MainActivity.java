@@ -9,19 +9,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.Report;
+import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.WaterReport;
 import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.User;
 
 public class MainActivity extends AppCompatActivity {
 
     public static Map<Integer, User> userSet = new HashMap<>();
     public static User currentUser;
-    public ArrayList<Report> reportList = new ArrayList<>();
+    public static ArrayList<WaterReport> waterReportList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         int j = (Integer)intent.getSerializableExtra("reportNum");
         if (j > 0) {
             for (int i = 0; i < j; i++) {
-                reportList.add((Report)intent.getSerializableExtra("report" + i));
+                waterReportList.add((WaterReport)intent.getSerializableExtra("report" + i));
             }
         }
     }
@@ -48,36 +45,57 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * View user profile and allow them to edit from said view
+     * @param view View this was done from
+     */
     public void viewProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Show the map of water reports
+     * @param view View this was done from
+     */
+    public void showMap(View view) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Start a report
+     * @param view Vie wthis was done from
+     */
     public void startReport(View view) {
         Intent intent = new Intent(this, ReportActivity.class);
-        intent.putExtra("reportNum", reportList.size());
-        if(reportList.size() > 0) {
-            for(int k = 0; k < reportList.size(); k++) {
-                intent.putExtra("report" + k, reportList.get(k));
+        intent.putExtra("reportNum", waterReportList.size());
+        if(waterReportList.size() > 0) {
+            for(int k = 0; k < waterReportList.size(); k++) {
+                intent.putExtra("report" + k, waterReportList.get(k));
             }
         }
         startActivity(intent);
     }
 
+    /**
+     * Show reports
+     * @param view View this was done from
+     */
     public void showReports(View view) {
         String printable = "";
-        for (int i = 0; i < reportList.size(); i++) {
-            printable += (reportList.get(i)).toString() + "\n";
+        for (int i = 0; i < waterReportList.size(); i++) {
+            printable += (waterReportList.get(i)).toString() + "\n";
         }
         new AlertDialog.Builder(this)
                 .setTitle("Reports Submitted:")
                 .setMessage(printable)
                 .setPositiveButton("close", (dialogInterface, i) -> {
                     Intent intent = new Intent(this, MainActivity.class);
-                    intent.putExtra("reportNum", reportList.size());
-                    if(reportList.size() > 0) {
-                        for(int k = 0; k < reportList.size(); k++) {
-                            intent.putExtra("report" + k, reportList.get(k));
+                    intent.putExtra("reportNum", waterReportList.size());
+                    if(waterReportList.size() > 0) {
+                        for(int k = 0; k < waterReportList.size(); k++) {
+                            intent.putExtra("report" + k, waterReportList.get(k));
                         }
                     }
                     startActivity(intent);
