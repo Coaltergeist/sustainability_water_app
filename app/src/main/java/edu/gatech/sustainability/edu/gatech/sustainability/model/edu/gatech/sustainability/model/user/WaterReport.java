@@ -5,8 +5,8 @@ package edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sus
  */
 import java.io.Serializable;
 
-@SuppressWarnings("serial") //With this annotation we are going to hide compiler warnings
-public class WaterReport implements Serializable{
+public class WaterReport implements Serializable {
+    private static final long serialVersionUID = 3802465091755147005L;
     private String name;
     private double longitude;
     private double latitude;
