@@ -35,9 +35,10 @@ public class MapsActivity extends FragmentActivity implements
     public boolean onMarkerClick(final Marker marker) {
         WaterReport waterReport = (WaterReport) marker.getTag();
         new AlertDialog.Builder(this)
-                .setTitle(waterReport.getName())
-                .setMessage("Type: " + waterReport.getWaterType() + "\n"
-                + "Condition: " + waterReport.getCondition())
+                .setTitle(String.format("%f | %f",
+                        waterReport.getLatitude(), waterReport.getLongitude()))
+                .setMessage(String.format("Type: %s\nCondition: %s\nReported by: %s",
+                        waterReport.getWaterType(), waterReport.getCondition(), waterReport.getName()))
                 .setPositiveButton("Back", (dialogInterface, i) -> { })
                 .show();
 
@@ -63,11 +64,19 @@ public class MapsActivity extends FragmentActivity implements
 
         for (WaterReport w : MainActivity.waterReportList) {
             LatLng latLng = new LatLng(w.getLatitude(), w.getLongitude());
-            Marker m = mMap.addMarker(new MarkerOptions().position(latLng).title(w.getName()));
+            Marker m = mMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title(String.format("%f | %f", latLng.latitude, latLng.longitude)));
+
             m.setTag(w);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         }
+        /*mMap = googleMap;
 
+        // Add a marker in Sydney, Australia, and move the camera.
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
     }
 
 

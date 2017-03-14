@@ -27,10 +27,12 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser == null)
             currentUser = userSet.get(intent.getIntExtra("userId", -1));
         ((TextView) findViewById(R.id.welcomeTextView)).setText("Welcome, " + currentUser.getUsername());
-        int j = (Integer)intent.getSerializableExtra("reportNum");
-        if (j > 0) {
-            for (int i = 0; i < j; i++) {
-                waterReportList.add((WaterReport)intent.getSerializableExtra("report" + i));
+        if (intent.getSerializableExtra("reportNum") != null) {
+            int j = (Integer) intent.getSerializableExtra("reportNum");
+            if (j > 0) {
+                for (int i = 0; i < j; i++) {
+                    waterReportList.add((WaterReport) intent.getSerializableExtra("report" + i));
+                }
             }
         }
     }
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Start a report
-     * @param view Vie wthis was done from
+     * @param view View this was done from
      */
     public void startReport(View view) {
         Intent intent = new Intent(this, ReportActivity.class);
@@ -83,22 +85,14 @@ public class MainActivity extends AppCompatActivity {
      * @param view View this was done from
      */
     public void showReports(View view) {
-        String printable = "";
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < waterReportList.size(); i++) {
-            printable += (waterReportList.get(i)).toString() + "\n";
+           sb.append((waterReportList.get(i)).toString() + "\n");
         }
         new AlertDialog.Builder(this)
                 .setTitle("Reports Submitted:")
-                .setMessage(printable)
+                .setMessage(sb.toString())
                 .setPositiveButton("close", (dialogInterface, i) -> {
-                    Intent intent = new Intent(this, MainActivity.class);
-                    intent.putExtra("reportNum", waterReportList.size());
-                    if(waterReportList.size() > 0) {
-                        for(int k = 0; k < waterReportList.size(); k++) {
-                            intent.putExtra("report" + k, waterReportList.get(k));
-                        }
-                    }
-                    startActivity(intent);
                 })
                 .show();
     }

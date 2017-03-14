@@ -19,23 +19,10 @@ public class ReportActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
-        Intent intent = getIntent();
-        int j = (Integer)intent.getSerializableExtra("reportNum");
-        if (j > 0) {
-            for (int i = 0; i < j; i++) {
-                waterReportList.add((WaterReport)intent.getSerializableExtra("report" + i));
-            }
-        }
     }
 
     public void cancelReport(View view) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("reportNum", waterReportList.size());
-        if(waterReportList.size() > 0) {
-            for(int k = 0; k < waterReportList.size(); k++) {
-                intent.putExtra("report" + k, waterReportList.get(k));
-            }
-        }
         startActivity(intent);
     }
 
@@ -48,19 +35,13 @@ public class ReportActivity extends AppCompatActivity  {
         String condition = ((EditText) findViewById(R.id.conditionText)).getText().toString();
         String waterType = ((EditText) findViewById(R.id.typeText)).getText().toString();
         WaterReport waterReport = new WaterReport(name, longitude, latitude, condition, waterType);
-        waterReportList.add(waterReport);
+        MainActivity.waterReportList.add(waterReport);
 
         new AlertDialog.Builder(this)
-                .setTitle("WaterReport Submitted")
+                .setTitle("Water Report Submitted")
                 .setMessage("Thank you")
                 .setPositiveButton("Back", (dialogInterface, i) -> {
                     Intent intent = new Intent(this, MainActivity.class);
-                    intent.putExtra("reportNum", waterReportList.size());
-                    if(waterReportList.size() > 0) {
-                        for(int k = 0; k < waterReportList.size(); k++) {
-                            intent.putExtra("waterReport" + k, waterReportList.get(k));
-                        }
-                    }
                     startActivity(intent);
                 })
                 .show();
