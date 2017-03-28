@@ -5,20 +5,25 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.UserType;
 import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.WaterReport;
 import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.User;
+import edu.gatech.sustainability.model.report.QualityReport;
 
 public class MainActivity extends AppCompatActivity {
 
     public static Map<Integer, User> userSet = new HashMap<>();
     public static User currentUser;
-    public static ArrayList<WaterReport> waterReportList = new ArrayList<>();
+    public static List<WaterReport> waterReportList = new ArrayList<>();
+    public static List<QualityReport> qualityReportList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +31,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (currentUser == null)
             currentUser = userSet.get(intent.getIntExtra("userId", -1));
+
+        Button qualityReportButton = (Button) findViewById(R.id.submitQualityReport);
+        if (currentUser.getType().equals(UserType.NORMALUSER)) {
+            qualityReportButton.setVisibility(View.GONE);
+        } else {
+            qualityReportButton.setVisibility(View.VISIBLE);
+        }
         ((TextView) findViewById(R.id.welcomeTextView)).setText("Welcome, " + currentUser.getUsername());
         if (intent.getSerializableExtra("reportNum") != null) {
             int j = (Integer) intent.getSerializableExtra("reportNum");
@@ -81,6 +93,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Submit a quality report
+     * @param view View this was done from
+     */
+    public void submitQualityReport(View view) {
+        if (waterReportList.isEmpty()) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Error")
+                    .setMessage("No water reports have been submitted yet")
+                    .setPositiveButton("close", (dialogInterface, i) -> {
+                    })
+                    .show();
+            return;
+        }
+        Intent intent = new Intent(this, QualityReportActivity.class);
+        startActivity(intent);
+    }
+
+    /**
      * Show reports
      * @param view View this was done from
      */
@@ -88,6 +118,21 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < waterReportList.size(); i++) {
            sb.append((waterReportList.get(i)).toString() + "\n");
+        }
+        new AlertDialog.Builder(this)
+                .setTitle("Reports Submitted:")
+                .setMessage(sb.toString())
+                .setPositiveButton("close", (dialogInterface, i) -> {
+                })
+                .show();
+    }
+
+    public void showQualityReports(View view) {
+        StringBuilder sb = new StringBuilder();
+        for (QualityReport q : qualityReportList) {
+            WaterReport w = WaterReport.getReportById(q.getId());
+            sb.append(String.format("%d) %s | Lat: %.2f Long: %.2f\nVirus PPM: %.2f Contaminant PPM: %.2f",
+                    q.getId(), q.getCondition().toString(), w.getLatitude(), w.getLongitude(), q.getVirPpm(), q.getContPpm()));
         }
         new AlertDialog.Builder(this)
                 .setTitle("Reports Submitted:")

@@ -5,6 +5,8 @@ package edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sus
  */
 import java.io.Serializable;
 
+import edu.gatech.sustainability.MainActivity;
+
 public class WaterReport implements Serializable {
     private static final long serialVersionUID = 3802465091755147005L;
     private String name;
@@ -12,6 +14,7 @@ public class WaterReport implements Serializable {
     private double latitude;
     private String condition;
     private String waterType;
+    private int id;
 
     /**
      * Default no-arg constructor
@@ -35,6 +38,7 @@ public class WaterReport implements Serializable {
         this.latitude = latitude;
         this.condition = condition;
         this.waterType = waterType;
+        this.id = MainActivity.waterReportList.size() + 1;
     }
 
     public String getName() { return name; }
@@ -42,6 +46,7 @@ public class WaterReport implements Serializable {
     public double getLatitude() { return latitude; }
     public String getCondition() { return condition; }
     public String getWaterType() { return waterType; }
+    public int getId() { return this.id; }
 
     public void setName(String name) { this.name = name; }
     public void setLongitude(double longitude) { this.longitude = longitude; }
@@ -50,10 +55,19 @@ public class WaterReport implements Serializable {
     public void setWaterType(String waterType) { this.waterType = waterType; }
 
     public String toString() {
-        String printable = "";
-        printable += name + "'s report: \n";
-        printable += condition + " condition " + waterType + " water located at " + longitude + " "
-                + latitude + "\n";
-        return printable;
+        return String.format("%d: %f | %f", this.id, this.latitude, this.longitude);
+    }
+
+    /**
+     * Return a water report by ID. Null if ID isn't found
+     * @param id ID to search for
+     * @return WaterReport if found, null if not
+     */
+    public static WaterReport getReportById(int id) {
+        for (WaterReport w : MainActivity.waterReportList) {
+            if (w.getId() == id)
+                return w;
+        }
+        return null;
     }
 }

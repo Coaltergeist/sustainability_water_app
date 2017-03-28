@@ -75,4 +75,26 @@
         app:layout_constraintLeft_toRightOf="@+id/waterReport"
         app:layout_constraintHorizontal_bias="1.0" />
 
+    <Button
+        android:id="@+id/submitQualityReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quality Report"
+        android:layout_marginLeft="190dp"
+        android:onClick="submitQualityReport"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="93dp"
+        app:layout_constraintTop_toBottomOf="@+id/viewMapButton" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View QR"
+        android:layout_marginTop="29dp"
+        app:layout_constraintTop_toBottomOf="@+id/viewReports"
+        android:layout_marginLeft="16dp"
+        android:onClick="showQualityReports"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
