@@ -25,7 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
                 R.array.user_roles, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        switch (MainActivity.currentUser.getType()) {
+        switch (MainActivity.currentUser.getUserType()) {
             case NORMALUSER:
                 spinner.setSelection(0);
                 break;
@@ -55,24 +55,26 @@ public class ProfileActivity extends AppCompatActivity {
         }
         switch((String) spinner.getSelectedItem()) {
             case "User":
-                MainActivity.currentUser.setType(UserType.NORMALUSER);
+                MainActivity.currentUser.setUserType(UserType.NORMALUSER);
                 break;
             case "Worker":
-                MainActivity.currentUser.setType(UserType.WORKER);
+                MainActivity.currentUser.setUserType(UserType.WORKER);
                 break;
             case "Manager":
-                MainActivity.currentUser.setType(UserType.MANAGER);
+                MainActivity.currentUser.setUserType(UserType.MANAGER);
                 break;
             case "Administrator":
-                MainActivity.currentUser.setType(UserType.ADMINISTRATOR);
+                MainActivity.currentUser.setUserType(UserType.ADMINISTRATOR);
                 break;
             default:
-                MainActivity.currentUser.setType(UserType.NORMALUSER);
+                MainActivity.currentUser.setUserType(UserType.NORMALUSER);
                 break;
         }
         MainActivity.currentUser.setEmail(((EditText) findViewById(R.id.editEmailText)).getText().toString());
         MainActivity.currentUser.setHomeAddress(((EditText) findViewById(R.id.editAddressText)).getText().toString());
         MainActivity.currentUser.setPhoneNumber(((EditText) findViewById(R.id.phoneNumberText)).getText().toString());
+        MainActivity.userDatabase.child(MainActivity.currentUser.getUserId())
+                .setValue(MainActivity.currentUser);
         backToMain(view);
     }
 

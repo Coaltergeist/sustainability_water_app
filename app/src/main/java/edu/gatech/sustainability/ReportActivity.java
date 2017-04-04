@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.WaterReport;
+import edu.gatech.sustainability.model.report.WaterReport;
 
 public class ReportActivity extends AppCompatActivity  {
 
@@ -34,7 +34,8 @@ public class ReportActivity extends AppCompatActivity  {
         double latitude = Double.parseDouble(latitude1);
         String condition = ((EditText) findViewById(R.id.conditionText)).getText().toString();
         String waterType = ((EditText) findViewById(R.id.typeText)).getText().toString();
-        WaterReport waterReport = new WaterReport(name, longitude, latitude, condition, waterType);
+        /*WaterReport waterReport = new WaterReport(name, longitude, latitude, condition, waterType,
+                MainActivity.currentUser.name);*/
         MainActivity.waterReportList.add(waterReport);
 
         new AlertDialog.Builder(this)

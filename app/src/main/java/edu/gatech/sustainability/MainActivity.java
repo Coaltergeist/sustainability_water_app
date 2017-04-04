@@ -4,9 +4,16 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.UserType;
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.WaterReport;
+import edu.gatech.sustainability.model.report.WaterReport;
 import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.User;
 import edu.gatech.sustainability.model.report.QualityReport;
 
@@ -24,16 +31,19 @@ public class MainActivity extends AppCompatActivity {
     public static User currentUser;
     public static List<WaterReport> waterReportList = new ArrayList<>();
     public static List<QualityReport> qualityReportList = new ArrayList<>();
+
+    static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public static DatabaseReference userDatabase = database.getReference("Users");
+    public static DatabaseReference reportDatabase = database.getReference("WaterSources");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
-        if (currentUser == null)
-            currentUser = userSet.get(intent.getIntExtra("userId", -1));
 
         Button qualityReportButton = (Button) findViewById(R.id.submitQualityReport);
-        if (currentUser.getType().equals(UserType.NORMALUSER)) {
+        if (currentUser.getUserType().equals(UserType.NORMALUSER)) {
             qualityReportButton.setVisibility(View.GONE);
         } else {
             qualityReportButton.setVisibility(View.VISIBLE);
@@ -119,6 +129,24 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < waterReportList.size(); i++) {
            sb.append((waterReportList.get(i)).toString() + "\n");
         }
+        reportDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snap: dataSnapshot.getChildren()) {
+                    Log.e("key", snap.getKey());
+                    String key = snap.getKey();
+                    String name = (String) snap.child("name").getValue();
+                    String discoverer = (String) snap.child("discoveredBy").getValue();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                System.out.println(error);
+            }
+        });
+
         new AlertDialog.Builder(this)
                 .setTitle("Reports Submitted:")
                 .setMessage(sb.toString())
@@ -129,16 +157,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void showQualityReports(View view) {
         StringBuilder sb = new StringBuilder();
-        for (QualityReport q : qualityReportList) {
+        /*for (QualityReport q : qualityReportList) {
             WaterReport w = WaterReport.getReportById(q.getId());
             sb.append(String.format("%d) %s | Lat: %.2f Long: %.2f\nVirus PPM: %.2f Contaminant PPM: %.2f",
-                    q.getId(), q.getCondition().toString(), w.getLatitude(), w.getLongitude(), q.getVirPpm(), q.getContPpm()));
+                    q.getId(), q.getCondition().toString(), , w.getLongitude(), q.getVirPpm(), q.getContPpm()));
         }
         new AlertDialog.Builder(this)
                 .setTitle("Reports Submitted:")
                 .setMessage(sb.toString())
                 .setPositiveButton("close", (dialogInterface, i) -> {
                 })
-                .show();
+                .show();*/
     }
+
+
+
 }

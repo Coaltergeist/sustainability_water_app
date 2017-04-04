@@ -12,7 +12,7 @@ import android.widget.Spinner;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.WaterReport;
+import edu.gatech.sustainability.model.report.WaterReport;
 import edu.gatech.sustainability.model.report.QualityReport;
 import edu.gatech.sustainability.model.report.QualityReportCondition;
 

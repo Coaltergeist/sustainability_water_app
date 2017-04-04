@@ -1,22 +1,20 @@
 package edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user;
 
-import edu.gatech.sustainability.MainActivity;
-
 /**
  * Created by Paul on 2/22/2017.
  */
 
 public class User {
 
-    private int userId;
-    private String username;
-    private String email;
+    private String userId;
+    public String name;
+    public String email;
     private String password;
 
-    private UserType type;
+    public UserType userType;
 
-    private String homeAddress;
-    private String phoneNumber;
+    public String address;
+    public String phoneNumber;
 
 
     /**
@@ -32,16 +30,16 @@ public class User {
      * @param email Email
      * @param password Password
      */
-    public User(String username, String email, String password, UserType type) {
-        this.username = username;
+    public User(String userId, String username, String email, String password, UserType type) {
+        this.name = username;
         this.email = email;
         this.password = password;
-        this.type = type;
-        this.userId = MainActivity.userSet.size() + 1;
+        this.userType = type;
+        this.userId =  userId;
     }
 
     public String getUsername() {
-        return this.username;
+        return this.name;
     }
 
     public String getEmail() {
@@ -52,11 +50,11 @@ public class User {
         return this.password;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return this.userId;
     }
     public void setUsername(String username) {
-        this.username = username;
+        this.name = username;
     }
 
     public void setEmail(String email) {
@@ -68,11 +66,11 @@ public class User {
     }
 
     public String getHomeAddress() {
-        return homeAddress == null ? "" : homeAddress;
+        return address == null ? "" : address;
     }
 
     public void setHomeAddress(String homeAddress) {
-        this.homeAddress = homeAddress;
+        this.address = homeAddress;
     }
 
     public String getPhoneNumber() {
@@ -83,8 +81,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public UserType getType() { return this.type; }
+    public UserType getUserType() { return this.userType; }
 
-    public void setType(UserType type) { this.type = type; }
+    public void setUserType(UserType userType) { this.userType = userType; }
 
+    public void setUserId(String s) {
+        this.userId = userId;
+    }
 }

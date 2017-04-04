@@ -15,4 +15,20 @@ public enum UserType {
     private UserType(String type) {
         this.type = type;
     }
+
+    public static UserType fromString(String s) {
+        switch (s.toLowerCase()) {
+            case "user":
+            case "normaluser":
+            default:
+                return NORMALUSER;
+            case "worker":
+                return WORKER;
+            case "manager":
+                return MANAGER;
+            case "admin":
+            case "administrator":
+                return ADMINISTRATOR;
+        }
+    }
 }

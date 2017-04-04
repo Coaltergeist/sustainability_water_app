@@ -1,5 +1,7 @@
 package edu.gatech.sustainability.model.report;
 
+import com.google.firebase.database.PropertyName;
+
 import edu.gatech.sustainability.MainActivity;
 
 /**
@@ -8,21 +10,28 @@ import edu.gatech.sustainability.MainActivity;
 
 public class QualityReport {
 
-    private int id;
+    private String id;
+    @PropertyName("userID")
+    private String userId;
     private int reportId;
+    @PropertyName("overallCondition")
     private QualityReportCondition condition;
+    @PropertyName("contaminantPPM")
     private double contPpm;
+    @PropertyName("virusPPM")
     private double virPpm;
 
-    public QualityReport(int reportId, QualityReportCondition condition, double contPpm, double virPpm) {
+    public QualityReport(int reportId, String userId, QualityReportCondition condition, double contPpm, double virPpm) {
+        this.userId = userId;
         this.reportId = reportId;
         this.condition = condition;
         this.contPpm = contPpm;
         this.virPpm = virPpm;
-        this.id = MainActivity.qualityReportList.size() + 1;
+        // TODO: this
+        this.id = "";
     }
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
