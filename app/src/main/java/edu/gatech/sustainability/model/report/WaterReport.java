@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 import edu.gatech.sustainability.MainActivity;
 
-public class WaterReport {
+public class WaterReport implements Serializable{
     @PropertyName("Condition")
     public Condition condition;
     // Epoch of date in seconds
@@ -46,5 +46,13 @@ public class WaterReport {
                 return w;
         }
         return null;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 }
