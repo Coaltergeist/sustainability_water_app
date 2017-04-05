@@ -24,6 +24,7 @@ import edu.gatech.sustainability.model.user.UserType;
 import edu.gatech.sustainability.model.report.WaterReport;
 import edu.gatech.sustainability.model.user.User;
 import edu.gatech.sustainability.model.report.QualityReport;
+import edu.gatech.sustainability.model.sources.WaterSource;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public static User currentUser;
     public static List<WaterReport> waterReportList = new ArrayList<>();
     public static List<QualityReport> qualityReportList = new ArrayList<>();
+    public static List<WaterSource> waterSources = new ArrayList<>();
 
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static DatabaseReference userDatabase = database.getReference("Users");
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view View this was done from
      */
     public void submitQualityReport(View view) {
-        if (waterReportList.isEmpty()) {
+        if (waterSources.isEmpty()) {
             new AlertDialog.Builder(this)
                     .setTitle("Error")
                     .setMessage("No water reports have been submitted yet")
@@ -170,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
                 .show();*/
     }
 
-
-
+    public void viewSources(View view) {
+        Intent intent = new Intent(this, SourcesActivity.class);
+        startActivity(intent);
+    }
 }

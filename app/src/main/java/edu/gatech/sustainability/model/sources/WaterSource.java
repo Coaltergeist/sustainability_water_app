@@ -2,6 +2,7 @@ package edu.gatech.sustainability.model.sources;
 
 import com.google.firebase.database.PropertyName;
 
+import java.io.Serializable;
 import java.util.List;
 
 import edu.gatech.sustainability.model.report.QualityReport;
@@ -11,7 +12,7 @@ import edu.gatech.sustainability.model.report.WaterReport;
  * Created by paul on 4/4/2017.
  */
 
-public class WaterSource {
+public class WaterSource implements Serializable {
 
     private String sourceId;
 
@@ -34,6 +35,12 @@ public class WaterSource {
 
     }
 
+    public WaterSource(String sourceId, Coordinates coordinates, CurrentData currentData) {
+        this.sourceId = sourceId;
+        this.coordinates = coordinates;
+        this.currentData = currentData;
+    }
+
     public WaterSource(String sourceId, Coordinates coordinates, List<QualityReport> waterPurityReports,
                        List<WaterReport> waterReports, CurrentData currentData) {
         this.sourceId = sourceId;
@@ -46,4 +53,6 @@ public class WaterSource {
     public String getSourceId() {
         return this.sourceId;
     }
+    public void setSourceId(String sourceId) { this.sourceId = sourceId; }
+    public void addQualityReport(QualityReport qualityReport) { waterPurityReports.add(qualityReport); }
 }
