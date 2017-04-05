@@ -70,13 +70,16 @@ public class MainActivity extends AppCompatActivity {
         ValueEventListener sourceListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                waterSources.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     try {
-                        waterSources.add(snapshot.getValue(WaterSource.class));
+                        WaterSource source = snapshot.getValue(WaterSource.class);
+                        source.setSourceId(snapshot.getKey());
+                        waterSources.add(source);
+                        Log.e("this", source.getSourceId() + " id");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    Log.e("this", "this");
                 }
                 Log.e("this2", waterSources.size() + "");
             }

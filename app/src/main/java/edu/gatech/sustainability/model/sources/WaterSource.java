@@ -1,11 +1,13 @@
 package edu.gatech.sustainability.model.sources;
 
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.PropertyName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.gatech.sustainability.MainActivity;
 import edu.gatech.sustainability.model.report.QualityReport;
 import edu.gatech.sustainability.model.report.WaterReport;
 
@@ -14,7 +16,7 @@ import edu.gatech.sustainability.model.report.WaterReport;
  */
 
 public class WaterSource implements Serializable {
-
+    @Exclude
     private String sourceId;
 
     @PropertyName("Coordinates")
@@ -55,5 +57,26 @@ public class WaterSource implements Serializable {
         return this.sourceId;
     }
     public void setSourceId(String sourceId) { this.sourceId = sourceId; }
-    public void addQualityReport(QualityReport qualityReport) { waterPurityReports.add(qualityReport); }
+
+    public void addQualityReport(QualityReport qualityReport) {
+        waterPurityReports.add(qualityReport);
+        MainActivity.reportDatabase.child(this.getSourceId()).child("WaterPurityReports").setValue(waterReports);
+    }
+
+    /**
+     * Add a water report and update the database
+     * @param report
+     */
+    public void addWaterReport(WaterReport report) {
+        waterReports.add(report);
+        MainActivity.reportDatabase.child(this.getSourceId()).child("WaterReports").setValue(waterReports);
+    }
+
+    @Override
+    public String toString() {
+        if (name == null || name.isEmpty()) {
+            return String.format("%.00f | %.00f", coordinates.latitude, coordinates.longitude);
+        }
+        return name;
+    }
 }

@@ -16,9 +16,8 @@ import edu.gatech.sustainability.model.sources.WaterSource;
  */
 
 public class SourcesActivity extends AppCompatActivity {
-
+    public static WaterSource selectedSource;
     Spinner spinner;
-    public static WaterSource source1;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +34,9 @@ public class SourcesActivity extends AppCompatActivity {
     }
 
     public void viewIndividualSource(View view) {
-        source1 = (WaterSource) spinner.getSelectedItem();
-        if (source1 != null) {
+        selectedSource = (WaterSource) spinner.getSelectedItem();
+        if (selectedSource != null) {
             Intent intent = new Intent(this, IndividualSourceActivity.class);
-            //intent.putExtra("sent source", source1);
             startActivity(intent);
         } else {
             new AlertDialog.Builder(this)

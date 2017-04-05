@@ -24,8 +24,8 @@ public class QualityReport {
     public QualityReport() {
 
     }
-    public QualityReport(String reportId, String userId, QualityReportCondition condition, double contPpm, double virPpm) {
-        this.id = reportId;
+    public QualityReport(String userId, QualityReportCondition condition, double contPpm, double virPpm) {
+        // this.id = reportId;
         this.userId = userId;
         this.condition = condition;
         this.contPpm = contPpm;

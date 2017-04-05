@@ -20,4 +20,19 @@ public class Coordinates {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Coordinates)) {
+            return false;
+        }
+        final Coordinates other = (Coordinates) obj;
+        if (other.latitude != this.latitude && other.longitude != this.longitude) {
+            return false;
+        }
+        return true;
+    }
 }

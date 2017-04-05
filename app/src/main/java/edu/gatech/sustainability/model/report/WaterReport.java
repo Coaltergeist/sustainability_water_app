@@ -25,8 +25,8 @@ public class WaterReport implements Serializable{
 
     }
 
-    public WaterReport(String reportId, long date, String userId) {
-        this.id = reportId;
+    public WaterReport(Condition condition, long date, String userId) {
+        this.condition = condition;
         this.date = date;
         this.userId = userId;
     }

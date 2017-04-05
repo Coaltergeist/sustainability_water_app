@@ -16,6 +16,7 @@ import edu.gatech.sustainability.model.report.ConditionTypes;
 import edu.gatech.sustainability.model.report.WaterReport;
 import edu.gatech.sustainability.model.report.QualityReport;
 import edu.gatech.sustainability.model.report.QualityReportCondition;
+import edu.gatech.sustainability.model.sources.WaterSource;
 
 
 public class QualityReportActivity extends AppCompatActivity {
@@ -23,9 +24,10 @@ public class QualityReportActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_quality_report);
-        ArrayAdapter<WaterReport> adapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, MainActivity.waterReportList);
+        ArrayAdapter<WaterSource> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, MainActivity.waterSources);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner locationItems = (Spinner) findViewById(R.id.spinner3);
@@ -43,7 +45,7 @@ public class QualityReportActivity extends AppCompatActivity {
 
     public void submitQualityReport(View view) {
         Spinner locationItems = (Spinner) findViewById(R.id.spinner3);
-        WaterReport location =  (WaterReport) locationItems.getSelectedItem();
+        WaterSource source = (WaterSource) locationItems.getSelectedItem();
 
         Spinner conditionItems = (Spinner) findViewById(R.id.spinner);
         QualityReportCondition condition = (QualityReportCondition) conditionItems.getSelectedItem();
@@ -52,8 +54,11 @@ public class QualityReportActivity extends AppCompatActivity {
                 .getText().toString());
         double virus = Double.parseDouble(((EditText) findViewById(R.id.virusPPM))
                 .getText().toString());
+
+        QualityReport report = new QualityReport(MainActivity.currentUser.getUserId(), condition, contaminant, virus);
+        source.addQualityReport(report);
         /*QualityReport q = new QualityReport(location.getReportId(), condition, contaminant, virus);
-        MainActivity.qualityReportList.add(q);
+        MainActivity.qualityReportList.add(q);*/
         new AlertDialog.Builder(this)
                 .setTitle("Quality Report Submitted")
                 .setMessage("Thank you")
@@ -62,6 +67,6 @@ public class QualityReportActivity extends AppCompatActivity {
                     startActivity(intent);
                 })
                 .show();
-                */
+
     }
 }
