@@ -13,13 +13,14 @@ import edu.gatech.sustainability.model.sources.WaterSource;
 
 public class IndividualSourceActivity extends AppCompatActivity {
 
-    WaterSource source1;
+    public static WaterSource source1;
 
     protected void onCreate(Bundle savedInstanceState) {
+        source1 = SourcesActivity.source1;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_source);
         Intent intent = getIntent();
-        source1 = (WaterSource) intent.getSerializableExtra("source");
+        source1 = (WaterSource) intent.getSerializableExtra("sent source");
     }
 
     public void returnToList(View view) {
