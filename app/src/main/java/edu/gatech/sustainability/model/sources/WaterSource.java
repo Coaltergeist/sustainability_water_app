@@ -4,7 +4,6 @@ import com.google.firebase.database.PropertyName;
 
 import java.util.List;
 
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.Coordinates;
 import edu.gatech.sustainability.model.report.QualityReport;
 import edu.gatech.sustainability.model.report.WaterReport;
 
@@ -21,18 +20,12 @@ public class WaterSource {
     public List<WaterReport> waterReports;
     @PropertyName("currentData")
     public CurrentData currentData;
+    // user name that discovered
     public String discoveredBy;
+    // name of the source
     public String name;
 
-    public class CurrentData {
-        public String waterCondition;
-        public String waterType;
-        public CurrentData() {}
-        public CurrentData(String waterCondition, String waterType) {
-            this.waterCondition = waterCondition;
-            this.waterType = waterType;
-        }
-    }
+
 
     public WaterSource() {
 

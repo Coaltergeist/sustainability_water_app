@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.UserType;
+import edu.gatech.sustainability.model.user.UserType;
 
 public class ProfileActivity extends AppCompatActivity {
     Spinner spinner;

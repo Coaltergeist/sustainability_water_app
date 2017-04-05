@@ -19,11 +19,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.User;
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.UserType;
+import edu.gatech.sustainability.model.user.User;
+import edu.gatech.sustainability.model.user.UserType;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;

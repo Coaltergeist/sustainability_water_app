@@ -21,13 +21,12 @@ public class QualityReport {
     @PropertyName("virusPPM")
     private double virPpm;
 
-    public QualityReport(int reportId, String userId, QualityReportCondition condition, double contPpm, double virPpm) {
+    public QualityReport(String userId, QualityReportCondition condition, double contPpm, double virPpm) {
         this.userId = userId;
-        this.reportId = reportId;
         this.condition = condition;
         this.contPpm = contPpm;
         this.virPpm = virPpm;
-        // TODO: this
+        // TODO: do something about the id
         this.id = "";
     }
 

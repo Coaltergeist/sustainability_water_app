@@ -8,28 +8,16 @@ import com.google.firebase.database.PropertyName;
 import java.io.Serializable;
 
 import edu.gatech.sustainability.MainActivity;
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.Coordinates;
 
-public class WaterReport implements Serializable {
-    private static final long serialVersionUID = 3802465091755147005L;
+public class WaterReport {
     @PropertyName("Condition")
     public Condition condition;
-    public String date;
+    // Epoch of date in seconds
+    public long date;
     public String userId;
     private String id;
 
-    class Condition {
-        public String color;
-        public String waterCondition;
-        public String waterType;
 
-        public Condition() {}
-        public Condition(String color, String waterCondition, String waterType) {
-            this.color = color;
-            this.waterCondition = waterCondition;
-            this.waterType = waterType;
-        }
-    }
     /**
      * Default no-arg constructor
      */
@@ -37,7 +25,7 @@ public class WaterReport implements Serializable {
 
     }
 
-    public WaterReport(String date, String userId) {
+    public WaterReport(long date, String userId) {
         this.date = date;
         this.userId = userId;
     }

@@ -18,8 +18,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Map;
 
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.User;
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.UserType;
+import edu.gatech.sustainability.model.user.User;
+import edu.gatech.sustainability.model.user.UserType;
 
 public class RegistrationActivity extends AppCompatActivity {
     ArrayAdapter<CharSequence> adapter;

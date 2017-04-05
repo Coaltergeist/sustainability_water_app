@@ -1,4 +1,4 @@
-package edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user;
+package edu.gatech.sustainability.model.user;
 
 /**
  * Created by Paul on 2/22/2017.

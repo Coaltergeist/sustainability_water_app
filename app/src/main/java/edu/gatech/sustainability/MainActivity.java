@@ -20,9 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.UserType;
+import edu.gatech.sustainability.model.user.UserType;
 import edu.gatech.sustainability.model.report.WaterReport;
-import edu.gatech.sustainability.edu.gatech.sustainability.model.edu.gatech.sustainability.model.user.User;
+import edu.gatech.sustainability.model.user.User;
 import edu.gatech.sustainability.model.report.QualityReport;
 
 public class MainActivity extends AppCompatActivity {

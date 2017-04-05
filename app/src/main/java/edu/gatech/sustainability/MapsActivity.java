@@ -33,17 +33,15 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     public boolean onMarkerClick(final Marker marker) {
         WaterReport waterReport = (WaterReport) marker.getTag();
-        new AlertDialog.Builder(this)
+        /*new AlertDialog.Builder(this)
                 .setTitle(String.format("%f | %f",
                         waterReport.getLatitude(), waterReport.getLongitude()))
                 .setMessage(String.format("Type: %s\nCondition: %s\nReported by: %s",
                         waterReport.getWaterType(), waterReport.getCondition(), waterReport.getName()))
                 .setPositiveButton("Back", (dialogInterface, i) -> { })
-                .show();
+                .show();*/
+        // todo: this
 
-        // Return false to indicate that we have not consumed the event and that we wish
-        // for the default behavior to occur (which is for the camera to move such that the
-        // marker is centered and for the marker's info window to open, if it has one).
         return false;
     }
 
@@ -62,13 +60,14 @@ public class MapsActivity extends FragmentActivity implements
         mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
 
         for (WaterReport w : MainActivity.waterReportList) {
-            LatLng latLng = new LatLng(w.getLatitude(), w.getLongitude());
+            /*LatLng latLng = new LatLng(w.getLatitude(), w.getLongitude());
             Marker m = mMap.addMarker(new MarkerOptions()
                     .position(latLng)
                     .title(String.format("%f | %f", latLng.latitude, latLng.longitude)));
 
             m.setTag(w);
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));*/
+            // TODO: 4/4/2017 this
         }
         /*mMap = googleMap;
 
