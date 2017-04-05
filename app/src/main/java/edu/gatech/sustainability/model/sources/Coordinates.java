@@ -12,6 +12,10 @@ public class Coordinates {
     @PropertyName("Longitude")
     public double longitude;
 
+    public Coordinates() {
+
+    }
+
     public Coordinates(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;

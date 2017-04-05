@@ -19,7 +19,11 @@ public class QualityReport {
     private double contPpm;
     @PropertyName("virusPPM")
     private double virPpm;
+    private long date;
 
+    public QualityReport() {
+
+    }
     public QualityReport(String reportId, String userId, QualityReportCondition condition, double contPpm, double virPpm) {
         this.id = reportId;
         this.userId = userId;
@@ -54,5 +58,9 @@ public class QualityReport {
 
     public void setVirPpm(double virPpm) {
         this.virPpm = virPpm;
+    }
+
+    public long getDate() {
+        return this.date;
     }
 }

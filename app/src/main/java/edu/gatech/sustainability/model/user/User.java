@@ -86,6 +86,6 @@ public class User {
     public void setUserType(UserType userType) { this.userType = userType; }
 
     public void setUserId(String s) {
-        this.userId = userId;
+        this.userId = s;
     }
 }

@@ -20,6 +20,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.gatech.sustainability.model.report.Condition;
+import edu.gatech.sustainability.model.report.ConditionTypes;
+import edu.gatech.sustainability.model.report.QualityReportCondition;
+import edu.gatech.sustainability.model.report.WaterTypes;
+import edu.gatech.sustainability.model.sources.Coordinates;
+import edu.gatech.sustainability.model.sources.CurrentData;
 import edu.gatech.sustainability.model.user.UserType;
 import edu.gatech.sustainability.model.report.WaterReport;
 import edu.gatech.sustainability.model.user.User;
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+       // String key = reportDatabase.push().getKey();
+        //reportDatabase.child(key)
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
@@ -59,6 +67,39 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        ValueEventListener sourceListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    try {
+                        waterSources.add(snapshot.getValue(WaterSource.class));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Log.e("this", "this");
+                }
+                Log.e("this2", waterSources.size() + "");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("loaderror", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        reportDatabase.addValueEventListener(sourceListener);
+        /*WaterSource ws = new WaterSource();
+        ws.coordinates = new Coordinates(10, 10);
+        ws.waterPurityReports.add(new QualityReport("abc", "123", QualityReportCondition.SAFE, .005, .005));
+        WaterReport wr = new WaterReport("abc", 123123123, "");
+        wr.condition = new Condition();
+        wr.condition.color = "blue";
+        wr.condition.waterCondition = ConditionTypes.POTABLE;
+        wr.condition.waterType = WaterTypes.BOTTLED;
+        ws.waterReports.add(wr);
+        ws.currentData = new CurrentData("Good", "Bottled");
+        ws.discoveredBy = "Paul";
+        ws.name = "Tone River";
+        reportDatabase.push().setValue(ws);*/
     }
 
     /**
@@ -98,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("reportNum", waterReportList.size());
         if(waterReportList.size() > 0) {
             for(int k = 0; k < waterReportList.size(); k++) {
-                intent.putExtra("report" + k, waterReportList.get(k));
+                intent.putExtra("report" + k, waterReportList.get(k).toString());
             }
         }
         startActivity(intent);

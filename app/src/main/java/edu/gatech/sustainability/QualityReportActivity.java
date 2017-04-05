@@ -52,7 +52,7 @@ public class QualityReportActivity extends AppCompatActivity {
                 .getText().toString());
         double virus = Double.parseDouble(((EditText) findViewById(R.id.virusPPM))
                 .getText().toString());
-        QualityReport q = new QualityReport(location.getId(), condition, contaminant, virus);
+        /*QualityReport q = new QualityReport(location.getReportId(), condition, contaminant, virus);
         MainActivity.qualityReportList.add(q);
         new AlertDialog.Builder(this)
                 .setTitle("Quality Report Submitted")
@@ -62,5 +62,6 @@ public class QualityReportActivity extends AppCompatActivity {
                     startActivity(intent);
                 })
                 .show();
+                */
     }
 }

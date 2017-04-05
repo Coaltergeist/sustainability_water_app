@@ -3,6 +3,7 @@ package edu.gatech.sustainability.model.sources;
 import com.google.firebase.database.PropertyName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.gatech.sustainability.model.report.QualityReport;
@@ -19,9 +20,9 @@ public class WaterSource implements Serializable {
     @PropertyName("Coordinates")
     public Coordinates coordinates;
     @PropertyName("WaterPurityReports")
-    public List<QualityReport> waterPurityReports;
+    public List<QualityReport> waterPurityReports = new ArrayList<>();
     @PropertyName("WaterReports")
-    public List<WaterReport> waterReports;
+    public List<WaterReport> waterReports = new ArrayList<>();
     @PropertyName("currentData")
     public CurrentData currentData;
     // user name that discovered
