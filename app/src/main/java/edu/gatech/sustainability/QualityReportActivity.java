@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.gatech.sustainability.model.report.ConditionTypes;
 import edu.gatech.sustainability.model.report.WaterReport;
 import edu.gatech.sustainability.model.report.QualityReport;
 import edu.gatech.sustainability.model.report.QualityReportCondition;
@@ -37,6 +38,7 @@ public class QualityReportActivity extends AppCompatActivity {
         qAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner qualityItems = (Spinner) findViewById(R.id.spinner);
         qualityItems.setAdapter(qAdapter);
+
     }
 
     public void submitQualityReport(View view) {

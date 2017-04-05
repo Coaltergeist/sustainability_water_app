@@ -13,7 +13,6 @@ public class QualityReport {
     private String id;
     @PropertyName("userID")
     private String userId;
-    private int reportId;
     @PropertyName("overallCondition")
     private QualityReportCondition condition;
     @PropertyName("contaminantPPM")
@@ -21,25 +20,16 @@ public class QualityReport {
     @PropertyName("virusPPM")
     private double virPpm;
 
-    public QualityReport(String userId, QualityReportCondition condition, double contPpm, double virPpm) {
+    public QualityReport(String reportId, String userId, QualityReportCondition condition, double contPpm, double virPpm) {
+        this.id = reportId;
         this.userId = userId;
         this.condition = condition;
         this.contPpm = contPpm;
         this.virPpm = virPpm;
-        // TODO: do something about the id
-        this.id = "";
     }
 
     public String getId() {
         return this.id;
-    }
-
-    public int getReportId() {
-        return reportId;
-    }
-
-    public void setReportId(int reportId) {
-        this.reportId = reportId;
     }
 
     public QualityReportCondition getCondition() {

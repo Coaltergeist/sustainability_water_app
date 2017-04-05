@@ -25,11 +25,15 @@ public class WaterReport {
 
     }
 
-    public WaterReport(long date, String userId) {
+    public WaterReport(String reportId, long date, String userId) {
+        this.id = reportId;
         this.date = date;
         this.userId = userId;
     }
 
+    public String getReportId() {
+        return this.id;
+    }
 
     /**
      * Return a water report by ID. Null if ID isn't found
