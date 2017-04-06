@@ -6,6 +6,9 @@ package edu.gatech.sustainability.model.report;
 import com.google.firebase.database.PropertyName;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import edu.gatech.sustainability.MainActivity;
 
@@ -54,5 +57,14 @@ public class WaterReport implements Serializable{
 
     public String getUserId() {
         return userId;
+    }
+
+    @Override
+    public String toString() {
+        Date date = new Date(this.date * 1000);
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy h:mm a");
+        sdf.setTimeZone(TimeZone.getDefault());
+        String formattedDate = sdf.format(date);
+        return formattedDate + " | " + condition.toString();
     }
 }

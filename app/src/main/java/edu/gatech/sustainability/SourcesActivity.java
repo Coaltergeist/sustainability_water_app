@@ -48,6 +48,22 @@ public class SourcesActivity extends AppCompatActivity {
         }
     }
 
+    public void viewHistory(View view) {
+        selectedSource = (WaterSource) spinner.getSelectedItem();
+        if (selectedSource != null) {
+            Intent intent = new Intent(this, GraphActivity.class);
+            intent.putExtra("id", selectedSource.getSourceId());
+            startActivity(intent);
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("No water source selected")
+                    .setMessage("Please choose a water source.")
+                    .setPositiveButton("close", (dialogInterface, i) -> {
+                    })
+                    .show();
+        }
+    }
+
     public void cancelSourceView(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

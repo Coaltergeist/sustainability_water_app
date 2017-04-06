@@ -56,6 +56,7 @@ public class QualityReportActivity extends AppCompatActivity {
                 .getText().toString());
 
         QualityReport report = new QualityReport(MainActivity.currentUser.getUserId(), condition, contaminant, virus);
+
         source.addQualityReport(report);
         /*QualityReport q = new QualityReport(location.getReportId(), condition, contaminant, virus);
         MainActivity.qualityReportList.add(q);*/

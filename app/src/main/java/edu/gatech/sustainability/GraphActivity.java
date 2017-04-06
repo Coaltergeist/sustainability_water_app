@@ -3,64 +3,70 @@ package edu.gatech.sustainability;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.gatech.sustainability.model.report.QualityReport;
 import edu.gatech.sustainability.model.sources.WaterSource;
-import lecho.lib.hellocharts.gesture.ContainerScrollType;
-import lecho.lib.hellocharts.gesture.ZoomType;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.view.LineChartView;
-
 public class GraphActivity extends AppCompatActivity {
-    LineChartView contaminantChart = (LineChartView) findViewById(R.id.contaminantChart);
-    LineChartView virusChart = (LineChartView) findViewById(R.id.virusChart);
 
-    List<PointValue> contPoints = new ArrayList<>();
-    List<PointValue> virusPoints = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
-        contaminantChart.setInteractive(true);
-        contaminantChart.setZoomType(ZoomType.HORIZONTAL);
-        contaminantChart.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
-        virusChart.setInteractive(true);
-        virusChart.setZoomType(ZoomType.HORIZONTAL);
-        virusChart.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+        GraphView graph2 = (GraphView) findViewById(R.id.graph2);
+        graph.setTitle("Contaminant historical");
+        graph2.setTitle("Virus historical");
+        //graph.getViewport().setMaxY(1);
 
-        String id = (String) getIntent().getSerializableExtra("filler");
+        String id = (String) getIntent().getSerializableExtra("id");
         WaterSource source = null;
         for (WaterSource w : MainActivity.waterSources) {
             if (w.getSourceId().equals(id)) {
                 source = w;
+                Log.e("graph", "Got here! " + source.waterPurityReports.size());
             }
         }
         if (source != null) {
+            LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+            LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>();
             List<QualityReport> qualityReports = source.waterPurityReports;
             qualityReports.sort((q1, q2) -> (int) (q1.getDate() - q2.getDate()));
             for (int i = 0; i < qualityReports.size(); i++) {
-                contPoints.add(new PointValue(i, (float) qualityReports.get(i).getContPpm()));
-                virusPoints.add(new PointValue(i, (float) qualityReports.get(i).getVirPpm()));
+                series.appendData(new DataPoint(qualityReports.get(i).getDate() * 1000,
+                        qualityReports.get(i).getContPpm()), true, 100);
+                series2.appendData(new DataPoint(qualityReports.get(i).getDate() * 1000,
+                        qualityReports.get(i).getVirPpm()), true, 100);
+                Log.e("Cont", qualityReports.get(i).getContPpm() + "");
+                //contPoints.add(new PointValue(i, (float) qualityReports.get(i).getContPpm()));
+                //virusPoints.add(new PointValue(i, (float) qualityReports.get(i).getVirPpm()));
             }
-            Line contLine = new Line(contPoints).setColor(Color.BLUE).setCubic(true);
-            List<Line> contLines = new ArrayList<Line>();
-            contLines.add(contLine);
-            Line virLine = new Line(virusPoints).setColor(Color.BLUE).setCubic(true);
-            List<Line> virLines = new ArrayList<Line>();
-            virLines.add(virLine);
+            graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getApplicationContext()));
+            graph2.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getApplicationContext()));
+            graph.addSeries(series);
+            graph2.addSeries(series2);
+            if (!qualityReports.isEmpty()) {
+                graph.getViewport().setMinX(qualityReports.get(0).getDate() * 1000);
+                graph.getViewport().setMaxX(qualityReports.get(qualityReports.size() - 1).getDate() * 1000);
+                graph.getViewport().setXAxisBoundsManual(true);
+                graph.getGridLabelRenderer().setHumanRounding(false);
+                graph2.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getApplicationContext()));
+                graph2.getViewport().setMinX(qualityReports.get(0).getDate() * 1000);
+                graph2.getViewport().setMaxX(qualityReports.get(qualityReports.size() - 1).getDate() * 1000);
+                graph2.getViewport().setXAxisBoundsManual(true);
+                graph2.getGridLabelRenderer().setHumanRounding(false);
+            }
 
-            LineChartData contData = new LineChartData();
-            contData.setLines(contLines);
-            LineChartData virusData = new LineChartData();
-            virusData.setLines(virLines);
-
-            contaminantChart.setLineChartData(contData);
-            virusChart.setLineChartData(virusData);
+        } else {
+            Log.e("nulled", "Nulled source");
         }
 
     }

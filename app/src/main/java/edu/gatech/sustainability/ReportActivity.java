@@ -1,9 +1,11 @@
 package edu.gatech.sustainability;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -41,7 +43,7 @@ public class ReportActivity extends AppCompatActivity  {
 
         typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
         ArrayAdapter<WaterTypes> adapter2 = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item,WaterTypes.values());
+                android.R.layout.simple_spinner_item, WaterTypes.values());
         typeSpinner.setAdapter(adapter2);
     }
 
@@ -50,6 +52,7 @@ public class ReportActivity extends AppCompatActivity  {
         startActivity(intent);
     }
 
+    private String sourceName = "";
     public void submitReport(View view) {
         String longitude1 = ((EditText) findViewById(R.id.longText)).getText().toString();
         String latitude1 = ((EditText) findViewById(R.id.latText)).getText().toString();
@@ -73,12 +76,37 @@ public class ReportActivity extends AppCompatActivity  {
             showSuccess();
             return;
         }
-        String sourceId = MainActivity.reportDatabase.push().getKey();
-        WaterSource source1 = new WaterSource(sourceId, coordinates, currentData);
-        source1.waterReports.add(report);
-        MainActivity.reportDatabase.push().setValue(source1);
-        MainActivity.waterSources.add(source1);
-        showSuccess();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Name of this location");
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                sourceName = input.getText().toString();
+                String sourceId = MainActivity.reportDatabase.push().getKey();
+                WaterSource source1 = new WaterSource(sourceId, coordinates, currentData);
+                source1.waterReports.add(report);
+                source1.name = sourceName;
+                source1.discoveredBy = MainActivity.currentUser.name;
+                MainActivity.reportDatabase.push().setValue(source1);
+                MainActivity.waterSources.add(source1);
+                showSuccess();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                return;
+            }
+        });
+        builder.show();
+
     }
 
     private WaterSource preexistingSource(Coordinates coordinates) {

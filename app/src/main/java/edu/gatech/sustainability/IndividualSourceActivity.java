@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import edu.gatech.sustainability.model.report.QualityReport;
+import edu.gatech.sustainability.model.report.WaterReport;
 import edu.gatech.sustainability.model.sources.WaterSource;
 
 /**
@@ -18,6 +22,17 @@ public class IndividualSourceActivity extends AppCompatActivity {
         // source is SourcesActivity.selectedSource;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_source);
+
+        ListView waterReportList = (ListView) findViewById(R.id.listView);
+        ListView qualityReportList = (ListView) findViewById(R.id.listView2);
+
+        ArrayAdapter<WaterReport> waterReportArrayAdapter = new ArrayAdapter<WaterReport>(this,
+                android.R.layout.simple_list_item_1, SourcesActivity.selectedSource.waterReports);
+        ArrayAdapter<QualityReport> qualityReportArrayAdapter = new ArrayAdapter<QualityReport>(this,
+                android.R.layout.simple_list_item_1, SourcesActivity.selectedSource.waterPurityReports);
+
+        waterReportList.setAdapter(waterReportArrayAdapter);
+        qualityReportList.setAdapter(qualityReportArrayAdapter);
     }
 
     public void returnToList(View view) {

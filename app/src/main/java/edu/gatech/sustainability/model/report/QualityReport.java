@@ -2,6 +2,10 @@ package edu.gatech.sustainability.model.report;
 
 import com.google.firebase.database.PropertyName;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import edu.gatech.sustainability.MainActivity;
 
 /**
@@ -30,6 +34,7 @@ public class QualityReport {
         this.condition = condition;
         this.contPpm = contPpm;
         this.virPpm = virPpm;
+        this.date = System.currentTimeMillis() / 1000;
     }
 
     public String getId() {
@@ -62,5 +67,16 @@ public class QualityReport {
 
     public long getDate() {
         return this.date;
+    }
+
+    @Override
+    public String toString() {
+        Date date = new Date(this.date * 1000);
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy h:mm a");
+        sdf.setTimeZone(TimeZone.getDefault());
+        String formattedDate = sdf.format(date);
+        if (this.condition == null)
+            return formattedDate;
+        return formattedDate + " | " + this.condition.toString();
     }
 }

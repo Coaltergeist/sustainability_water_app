@@ -15,4 +15,9 @@ public class Condition {
         this.waterCondition = waterCondition;
         this.waterType = waterType;
     }
+
+    @Override
+    public String toString() {
+        return this.color + ", " + waterCondition.toString() + ", " + waterType;
+    }
 }

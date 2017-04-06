@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.gatech.sustainability.model.report.WaterReport;
+import edu.gatech.sustainability.model.sources.WaterSource;
 
 public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,
@@ -32,15 +33,14 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        WaterReport waterReport = (WaterReport) marker.getTag();
-        /*new AlertDialog.Builder(this)
-                .setTitle(String.format("%f | %f",
-                        waterReport.getLatitude(), waterReport.getLongitude()))
-                .setMessage(String.format("Type: %s\nCondition: %s\nReported by: %s",
-                        waterReport.getWaterType(), waterReport.getCondition(), waterReport.getName()))
+        WaterSource waterSource = (WaterSource) marker.getTag();
+        new AlertDialog.Builder(this)
+                .setTitle(String.format("%s\n%f | %f", waterSource.name,
+                        waterSource.coordinates.latitude, waterSource.coordinates.longitude))
+                .setMessage(String.format("Condition: %s\nType: %s",
+                        waterSource.currentData.waterCondition, waterSource.currentData.waterType))
                 .setPositiveButton("Back", (dialogInterface, i) -> { })
-                .show();*/
-        // todo: this
+                .show();
 
         return false;
     }
@@ -59,15 +59,12 @@ public class MapsActivity extends FragmentActivity implements
         mMap = googleMap;
         mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
 
-        for (WaterReport w : MainActivity.waterReportList) {
-            /*LatLng latLng = new LatLng(w.getLatitude(), w.getLongitude());
-            Marker m = mMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .title(String.format("%f | %f", latLng.latitude, latLng.longitude)));
-
-            m.setTag(w);
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));*/
-            // TODO: 4/4/2017 this
+        for (WaterSource source : MainActivity.waterSources) {
+            LatLng latLng = new LatLng(source.coordinates.latitude, source.coordinates.longitude);
+            Marker m = mMap.addMarker(new MarkerOptions().position(latLng)
+                    .title(String.format("%s\n%.00f | %.00f", source.name, latLng.latitude, latLng.longitude)));
+            m.setTag(source);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         }
         /*mMap = googleMap;
 

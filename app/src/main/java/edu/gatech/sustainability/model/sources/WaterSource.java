@@ -60,7 +60,7 @@ public class WaterSource implements Serializable {
 
     public void addQualityReport(QualityReport qualityReport) {
         waterPurityReports.add(qualityReport);
-        MainActivity.reportDatabase.child(this.getSourceId()).child("WaterPurityReports").setValue(waterReports);
+        MainActivity.reportDatabase.child(this.getSourceId()).child("WaterPurityReports").setValue(waterPurityReports);
     }
 
     /**
