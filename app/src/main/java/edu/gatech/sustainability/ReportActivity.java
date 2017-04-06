@@ -66,14 +66,12 @@ public class ReportActivity extends AppCompatActivity  {
         currentData = new CurrentData(conditionType, waterType);
         WaterReport report = new WaterReport(condition, System.currentTimeMillis() / 1000,
                 MainActivity.currentUser.getUserId());
-        for (WaterSource source : MainActivity.waterSources) {
-            if (source.coordinates.equals(coordinates)) {
-                // We have a source already, just add this report to its list
-                source.currentData = currentData;
-                source.addWaterReport(report);
-                showSuccess();
-                return;
-            }
+        WaterSource source = preexistingSource(coordinates);
+        if (source != null) {
+            source.currentData = currentData;
+            source.addWaterReport(report);
+            showSuccess();
+            return;
         }
         String sourceId = MainActivity.reportDatabase.push().getKey();
         WaterSource source1 = new WaterSource(sourceId, coordinates, currentData);
@@ -81,6 +79,16 @@ public class ReportActivity extends AppCompatActivity  {
         MainActivity.reportDatabase.push().setValue(source1);
         MainActivity.waterSources.add(source1);
         showSuccess();
+    }
+
+    private WaterSource preexistingSource(Coordinates coordinates) {
+        for (WaterSource source : MainActivity.waterSources) {
+            if (source.coordinates.equals(coordinates)) {
+                // We have a source already, just add this report to its list
+                return source;
+            }
+        }
+        return null;
     }
 
     private void showSuccess() {
