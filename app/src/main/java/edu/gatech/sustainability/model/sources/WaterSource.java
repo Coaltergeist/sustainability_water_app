@@ -79,4 +79,13 @@ public class WaterSource implements Serializable {
         }
         return name;
     }
+    
+    public static WaterSource getWaterSourceById(String id) {
+        for (WaterSource source : MainActivity.waterSources) {
+            if (source.getSourceId().equals(id)) {
+                return source;
+            }
+        }
+        return null;
+    }
 }
