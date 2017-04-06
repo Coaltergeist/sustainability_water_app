@@ -75,43 +75,20 @@ public class RegistrationActivity extends AppCompatActivity {
         String email = ((EditText) findViewById(R.id.emailText)).getText().toString();
         String passwordConfirm = ((EditText) findViewById(R.id.confirmPasswordText)).getText().toString();
 
-        if (username.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty() || email.isEmpty()) {
+        if (!nonEmptyStrings(username, password, passwordConfirm, email)) {
             new AlertDialog.Builder(this)
                     .setTitle("Empty fields")
                     .setMessage("Please fill out every field")
                     .setPositiveButton("Back", (dialogInterface, i) -> { })
                     .show();
         }
-        for (Map.Entry<Integer, User> entry : MainActivity.userSet.entrySet()) {
-            User u = entry.getValue();
-            if (u.getUsername().toLowerCase().equals(username.toLowerCase())) {
-                new AlertDialog.Builder(this)
-                        .setTitle("Username unavailable")
-                        .setMessage("This username is already taken")
-                        .setPositiveButton("Back", (dialogInterface, i) -> { })
-                        .show();
-                return;
-            } else if (u.getEmail().toLowerCase().equals(email.toLowerCase())) {
-                new AlertDialog.Builder(this)
-                        .setTitle("Email unavailable")
-                        .setMessage("This email is already taken")
-                        .setPositiveButton("Back", (dialogInterface, i) -> { })
-                        .show();
-                return;
-            }
-        }
-        if (password.length() < 6) {
+
+        try {
+            passwordCheck(password, passwordConfirm);
+        } catch (IllegalArgumentException e) {
             new AlertDialog.Builder(this)
-                    .setTitle("Password too short")
-                    .setMessage("Passwords must be at least 6 characters long")
-                    .setPositiveButton("Back", (dialogInterface, i) -> { })
-                    .show();
-            return;
-        }
-        if (!password.equals(passwordConfirm)) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Passwords do not match")
-                    .setMessage("Please userType in your password again")
+                    .setTitle("Error")
+                    .setMessage(e.getMessage())
                     .setPositiveButton("Back", (dialogInterface, i) -> { })
                     .show();
             return;
@@ -172,6 +149,38 @@ public class RegistrationActivity extends AppCompatActivity {
         });*/
 
     }
+
+    /**
+     * Check to make sure all Strings are nonempty
+     * @param strings Strings to check
+     * @return True if all strings aren't empty, false if there is at least one empty
+     */
+    private boolean nonEmptyStrings(String... strings) {
+        for (String s : strings) {
+            if (s.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Perform checks to determine password consistency and strength
+     * @throws IllegalArgumentException Password check fails
+     * @param password Password from password field
+     * @param confirm Password confirmation from confirmation field
+     * @return True if pass
+     */
+    private boolean passwordCheck(String password, String confirm) throws IllegalArgumentException {
+        if (password.length() < 6) {
+            throw new IllegalArgumentException("Password needs to be at least 6 characters");
+        }
+        if (!password.equals(confirm)) {
+            throw new IllegalArgumentException("Passwords do not match");
+        }
+        return true;
+    }
+
     private void showSuccessfulRegistration() {
         new AlertDialog.Builder(this)
                 .setTitle("Successfully registered")
