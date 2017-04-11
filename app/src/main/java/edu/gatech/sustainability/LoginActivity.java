@@ -119,6 +119,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Finish login & go to main screen
+     */
     private void login() {
         Intent intent = new Intent(this, MainActivity.class);
         //intent.putExtra("username", entry.getKey());
@@ -127,6 +130,9 @@ public class LoginActivity extends AppCompatActivity {
         return;
     }
 
+    /**
+     * Alert the user to a bad login attempt
+     */
     private void badLogin() {
         new AlertDialog.Builder(this)
                 .setTitle("Invalid login credentials")

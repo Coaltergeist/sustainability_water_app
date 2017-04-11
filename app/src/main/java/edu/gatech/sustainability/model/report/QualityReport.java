@@ -45,26 +45,50 @@ public class QualityReport {
         return condition;
     }
 
+    /**
+     * Set condition
+     * @param condition Condition to set
+     */
     public void setCondition(QualityReportCondition condition) {
         this.condition = condition;
     }
 
+    /**
+     * Get contaminant PPM
+     * @return Contaminant PPM
+     */
     public double getContPpm() {
         return contPpm;
     }
 
+    /**
+     * Set contaminant PPM
+     * @param contPpm Contaminant PPM
+     */
     public void setContPpm(double contPpm) {
         this.contPpm = contPpm;
     }
 
+    /**
+     * Get virus PPM
+     * @return Virus PPM
+     */
     public double getVirPpm() {
         return virPpm;
     }
 
+    /**
+     * Set virus PPM
+     * @param virPpm Virus PPM
+     */
     public void setVirPpm(double virPpm) {
         this.virPpm = virPpm;
     }
 
+    /**
+     * Get creation date of this report
+     * @return Long of epoch in seconds of date
+     */
     public long getDate() {
         return this.date;
     }

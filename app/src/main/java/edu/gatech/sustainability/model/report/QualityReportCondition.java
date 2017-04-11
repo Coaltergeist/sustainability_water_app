@@ -17,6 +17,10 @@ public enum QualityReportCondition {
         this.readable = condition;
     }
 
+    /**
+     * Return this quality report in its readable format
+     * @return Readable format
+     */
     public String toString() {
         return this.readable;
     }

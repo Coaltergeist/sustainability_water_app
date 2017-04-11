@@ -34,6 +34,10 @@ public class WaterReport implements Serializable{
         this.userId = userId;
     }
 
+    /**
+     * Get this report's ID
+     * @return Report ID
+     */
     public String getReportId() {
         return this.id;
     }
@@ -50,6 +54,7 @@ public class WaterReport implements Serializable{
         }
         return null;
     }
+
 
     public String getId() {
         return id;

@@ -18,6 +18,7 @@ import edu.gatech.sustainability.model.sources.WaterSource;
 public class IndividualSourceActivity extends AppCompatActivity {
 
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         // source is SourcesActivity.selectedSource;
         super.onCreate(savedInstanceState);
@@ -35,6 +36,10 @@ public class IndividualSourceActivity extends AppCompatActivity {
         qualityReportList.setAdapter(qualityReportArrayAdapter);
     }
 
+    /**
+     * Return to main listing of sources
+     * @param view View originated from
+     */
     public void returnToList(View view) {
         Intent intent = new Intent(this, SourcesActivity.class);
         startActivity(intent);

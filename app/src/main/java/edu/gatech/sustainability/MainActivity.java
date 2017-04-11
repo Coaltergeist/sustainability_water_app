@@ -90,19 +90,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         reportDatabase.addValueEventListener(sourceListener);
-        /*WaterSource ws = new WaterSource();
-        ws.coordinates = new Coordinates(10, 10);
-        ws.waterPurityReports.add(new QualityReport("abc", "123", QualityReportCondition.SAFE, .005, .005));
-        WaterReport wr = new WaterReport("abc", 123123123, "");
-        wr.condition = new Condition();
-        wr.condition.color = "blue";
-        wr.condition.waterCondition = ConditionTypes.POTABLE;
-        wr.condition.waterType = WaterTypes.BOTTLED;
-        ws.waterReports.add(wr);
-        ws.currentData = new CurrentData("Good", "Bottled");
-        ws.discoveredBy = "Paul";
-        ws.name = "Tone River";
-        reportDatabase.push().setValue(ws);*/
     }
 
     /**
@@ -201,21 +188,10 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    public void showQualityReports(View view) {
-        StringBuilder sb = new StringBuilder();
-        /*for (QualityReport q : qualityReportList) {
-            WaterReport w = WaterReport.getReportById(q.getId());
-            sb.append(String.format("%d) %s | Lat: %.2f Long: %.2f\nVirus PPM: %.2f Contaminant PPM: %.2f",
-                    q.getId(), q.getCondition().toString(), , w.getLongitude(), q.getVirPpm(), q.getContPpm()));
-        }
-        new AlertDialog.Builder(this)
-                .setTitle("Reports Submitted:")
-                .setMessage(sb.toString())
-                .setPositiveButton("close", (dialogInterface, i) -> {
-                })
-                .show();*/
-    }
-
+    /**
+     * Show source view
+     * @param view View this was done from
+     */
     public void viewSources(View view) {
         Intent intent = new Intent(this, SourcesActivity.class);
         startActivity(intent);

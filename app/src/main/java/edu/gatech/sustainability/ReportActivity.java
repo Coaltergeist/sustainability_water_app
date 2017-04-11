@@ -47,12 +47,24 @@ public class ReportActivity extends AppCompatActivity  {
         typeSpinner.setAdapter(adapter2);
     }
 
-    public void cancelReport(View view) {
+    /**
+     * Cancel report and return to main screen
+     * @param view View this started from
+     */
+    private void cancelReport(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     private String sourceName = "";
+
+    /**
+     * Submit this water report and save it to the database.
+     * <p>
+     * If the coordinates do not exist as a water source, then prompt the user to enter
+     * a name for a new water source and add it to the database
+     * @param view View this was done from
+     */
     public void submitReport(View view) {
         String longitude1 = ((EditText) findViewById(R.id.longText)).getText().toString();
         String latitude1 = ((EditText) findViewById(R.id.latText)).getText().toString();
@@ -109,6 +121,11 @@ public class ReportActivity extends AppCompatActivity  {
 
     }
 
+    /**
+     * Check if a preexisting source already exists
+     * @param coordinates Coordinates to check
+     * @return WaterSource if found, null if not
+     */
     private WaterSource preexistingSource(Coordinates coordinates) {
         for (WaterSource source : MainActivity.waterSources) {
             if (source.coordinates.equals(coordinates)) {
@@ -119,6 +136,9 @@ public class ReportActivity extends AppCompatActivity  {
         return null;
     }
 
+    /**
+     * Show success dialog box
+     */
     private void showSuccess() {
         new AlertDialog.Builder(this)
                 .setTitle("Water Report Submitted")

@@ -53,11 +53,24 @@ public class WaterSource implements Serializable {
         this.currentData = currentData;
     }
 
+    /**
+     * Get the ID for this water source
+     * @return Water Source ID
+     */
     public String getSourceId() {
         return this.sourceId;
     }
+
+    /**
+     * Set the ID for this water source
+     * @param sourceId Water Source ID
+     */
     public void setSourceId(String sourceId) { this.sourceId = sourceId; }
 
+    /**
+     * Add a quality report to this source and sync to the database
+     * @param qualityReport QualityReport to add
+     */
     public void addQualityReport(QualityReport qualityReport) {
         waterPurityReports.add(qualityReport);
         MainActivity.reportDatabase.child(this.getSourceId()).child("WaterPurityReports").setValue(waterPurityReports);
@@ -79,7 +92,12 @@ public class WaterSource implements Serializable {
         }
         return name;
     }
-    
+
+    /**
+     * Get a water source by its ID
+     * @param id ID to search for
+     * @return WaterSource if found, null if not
+     */
     public static WaterSource getWaterSourceById(String id) {
         for (WaterSource source : MainActivity.waterSources) {
             if (source.getSourceId().equals(id)) {

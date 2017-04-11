@@ -42,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     /**
-     * Save profile to user object
+     * Save profile to user object & update firebase
      * @param view Originating view
      */
     public void saveProfile(View view) {

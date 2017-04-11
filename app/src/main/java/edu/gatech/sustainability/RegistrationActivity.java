@@ -181,6 +181,9 @@ public class RegistrationActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Show successful popup
+     */
     private void showSuccessfulRegistration() {
         new AlertDialog.Builder(this)
                 .setTitle("Successfully registered")
@@ -191,6 +194,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 })
                 .show();
     }
+
+    /**
+     * Show failure popup
+     */
     private void showFailedRegistration() {
         new AlertDialog.Builder(this)
                 .setTitle("Failed to register")

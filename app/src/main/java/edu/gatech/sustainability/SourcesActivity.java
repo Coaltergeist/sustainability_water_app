@@ -19,6 +19,7 @@ public class SourcesActivity extends AppCompatActivity {
     public static WaterSource selectedSource;
     Spinner spinner;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sources);
@@ -33,6 +34,10 @@ public class SourcesActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Show an individual source
+     * @param view View this was done from
+     */
     public void viewIndividualSource(View view) {
         selectedSource = (WaterSource) spinner.getSelectedItem();
         if (selectedSource != null) {
@@ -48,6 +53,10 @@ public class SourcesActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * View the history of a source
+     * @param view View this was done from
+     */
     public void viewHistory(View view) {
         selectedSource = (WaterSource) spinner.getSelectedItem();
         if (selectedSource != null) {
@@ -64,6 +73,10 @@ public class SourcesActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Cancel and return to main screen
+     * @param view View this was done from
+     */
     public void cancelSourceView(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

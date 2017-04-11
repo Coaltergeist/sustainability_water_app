@@ -43,6 +43,10 @@ public class QualityReportActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Submit this quality report and add it to the database
+     * @param view View this was done from
+     */
     public void submitQualityReport(View view) {
         Spinner locationItems = (Spinner) findViewById(R.id.spinner3);
         WaterSource source = (WaterSource) locationItems.getSelectedItem();
