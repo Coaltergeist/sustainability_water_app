@@ -1,9 +1,36 @@
 <resources>
     <string name="app_name">Sustainability</string>
     <string name="password">Password</string>
+    <string name="confirmPassword">Confirm Password</string>
     <string name="username">Username</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="e_mail">E-Mail</string>
     <string name="title_activity_maps">Map</string>
+    <string name="waterReport">Water Report</string>
+    <string name="qualityReport">Quality Report</string>
+    <string name="back">Back</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="startReport">Start Report</string>
+    <string name="viewMap">View Map</string>
+    <string name="viewSources">View Sources</string>
+    <string name="address">Address</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="save">Save</string>
+    <string name="quality">Quality</string>
+    <string name="virusPpm">Virus PPM</string>
+    <string name="contaminantPpm">Contaminant PPM</string>
+    <string name="location">Location</string>
+    <string name="submit">Submit</string>
+
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="color">Color</string>
+
+    <string name="condition">Condition</string>
+    <string name="waterType">Water Type</string>
+
+    <string name="viewSource">View Source</string>
+    <string name="viewHistory">View History</string>
 </resources>

@@ -4,8 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.View;import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -43,7 +42,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     /**
      * Save profile to user object & update firebase
-     * @param view Originating view
      */
     public void saveProfile(View view) {
         if (((EditText) findViewById(R.id.editEmailText)).getText().toString().isEmpty()) {
@@ -75,12 +73,11 @@ public class ProfileActivity extends AppCompatActivity {
         MainActivity.currentUser.setPhoneNumber(((EditText) findViewById(R.id.phoneNumberText)).getText().toString());
         MainActivity.userDatabase.child(MainActivity.currentUser.getUserId())
                 .setValue(MainActivity.currentUser);
-        backToMain(view);
+        backToMain();
     }
 
     /**
      * Go back to main screen
-     * @param view Originating view
      */
     public void backToMain(View view) {
         Intent intent = new Intent(this, MainActivity.class);

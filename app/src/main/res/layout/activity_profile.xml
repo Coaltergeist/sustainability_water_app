@@ -8,6 +8,7 @@
     tools:context="edu.gatech.sustainability.ProfileActivity">
 
     <EditText
+        android:hint="@string/e_mail"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -20,7 +21,7 @@
         android:textSize="12sp" />
 
     <TextView
-        android:text="Email Address"
+        android:text="@string/e_mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/profileEmailTextView"
@@ -31,7 +32,7 @@
         android:textSize="24sp" />
 
     <TextView
-        android:text="Address"
+        android:text="@string/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/profileAddressTextView"
@@ -42,6 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editEmailText" />
 
     <EditText
+        android:hint="@string/address"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -54,7 +56,7 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
-        android:text="Phone Number"
+        android:text="@string/phoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/profilePhoneTextView"
@@ -65,6 +67,7 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <EditText
+        android:hint="@string/phoneNumber"
         android:layout_width="159dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -77,7 +80,7 @@
         android:textSize="10sp" />
 
     <Button
-        android:text="Save"
+        android:text="@string/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/profileSaveButton"
@@ -88,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/profileRoleSpinner" />
 
     <Button
-        android:text="Back"
+        android:text="@string/back"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:id="@+id/profileBackButton"

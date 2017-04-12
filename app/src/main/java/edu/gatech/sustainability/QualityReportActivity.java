@@ -4,16 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.View;import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.Arrays;
 import java.util.List;
 
-import edu.gatech.sustainability.model.report.ConditionTypes;
-import edu.gatech.sustainability.model.report.WaterReport;
 import edu.gatech.sustainability.model.report.QualityReport;
 import edu.gatech.sustainability.model.report.QualityReportCondition;
 import edu.gatech.sustainability.model.sources.WaterSource;
@@ -45,7 +42,6 @@ public class QualityReportActivity extends AppCompatActivity {
 
     /**
      * Submit this quality report and add it to the database
-     * @param view View this was done from
      */
     public void submitQualityReport(View view) {
         Spinner locationItems = (Spinner) findViewById(R.id.spinner3);
@@ -74,4 +70,5 @@ public class QualityReportActivity extends AppCompatActivity {
                 .show();
 
     }
+
 }

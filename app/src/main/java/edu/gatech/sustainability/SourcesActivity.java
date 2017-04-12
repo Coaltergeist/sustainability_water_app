@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.view.View;import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import edu.gatech.sustainability.model.sources.WaterSource;
 
 /**
  * Created by coalt on 4/5/2017.
+ * Source controller
  */
 
 public class SourcesActivity extends AppCompatActivity {
@@ -23,7 +22,6 @@ public class SourcesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sources);
-        Intent intent = getIntent();
         spinner = (Spinner) findViewById(R.id.sourceSpinner);
         //for loop to set spinner contents to be added
         //test code below
@@ -36,7 +34,6 @@ public class SourcesActivity extends AppCompatActivity {
 
     /**
      * Show an individual source
-     * @param view View this was done from
      */
     public void viewIndividualSource(View view) {
         selectedSource = (WaterSource) spinner.getSelectedItem();
@@ -55,7 +52,6 @@ public class SourcesActivity extends AppCompatActivity {
 
     /**
      * View the history of a source
-     * @param view View this was done from
      */
     public void viewHistory(View view) {
         selectedSource = (WaterSource) spinner.getSelectedItem();
@@ -75,10 +71,10 @@ public class SourcesActivity extends AppCompatActivity {
 
     /**
      * Cancel and return to main screen
-     * @param view View this was done from
      */
     public void cancelSourceView(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
 }

@@ -2,6 +2,7 @@ package edu.gatech.sustainability.model.user;
 
 /**
  * Created by Paul on 2/22/2017.
+ * User model
  */
 
 public class User {
@@ -28,12 +29,10 @@ public class User {
      * Create a user with a predetermined user ID based on user map size. Non-persistent
      * @param username Username to register
      * @param email Email
-     * @param password Password
      */
-    public User(String userId, String username, String email, String password, UserType type) {
+    public User(String userId, String username, String email, UserType type) {
         this.name = username;
         this.email = email;
-        this.password = password;
         this.userType = type;
         this.userId =  userId;
     }

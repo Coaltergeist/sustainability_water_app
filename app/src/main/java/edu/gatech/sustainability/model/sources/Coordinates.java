@@ -4,6 +4,7 @@ import com.google.firebase.database.PropertyName;
 
 /**
  * Created by p on 4/4/2017.
+ * Coordinates for sources
  */
 
 public class Coordinates {
@@ -30,9 +31,6 @@ public class Coordinates {
             return false;
         }
         final Coordinates other = (Coordinates) obj;
-        if (other.latitude != this.latitude && other.longitude != this.longitude) {
-            return false;
-        }
-        return true;
+        return !(other.latitude != this.latitude && other.longitude != this.longitude);
     }
 }

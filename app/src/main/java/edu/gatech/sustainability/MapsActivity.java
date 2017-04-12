@@ -12,7 +12,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import edu.gatech.sustainability.model.report.WaterReport;
+import java.util.Locale;
+
 import edu.gatech.sustainability.model.sources.WaterSource;
 
 public class MapsActivity extends FragmentActivity implements
@@ -35,9 +36,9 @@ public class MapsActivity extends FragmentActivity implements
     public boolean onMarkerClick(final Marker marker) {
         WaterSource waterSource = (WaterSource) marker.getTag();
         new AlertDialog.Builder(this)
-                .setTitle(String.format("%s\n%f | %f", waterSource.name,
+                .setTitle(String.format(Locale.US, "%s\n%f | %f", waterSource.name,
                         waterSource.coordinates.latitude, waterSource.coordinates.longitude))
-                .setMessage(String.format("Condition: %s\nType: %s",
+                .setMessage(String.format(Locale.US, "Condition: %s\nType: %s",
                         waterSource.currentData.waterCondition, waterSource.currentData.waterType))
                 .setPositiveButton("Back", (dialogInterface, i) -> { })
                 .show();
@@ -48,12 +49,12 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
+        mMap.setOnMarkerClickListener(this);
 
         for (WaterSource source : MainActivity.waterSources) {
             LatLng latLng = new LatLng(source.coordinates.latitude, source.coordinates.longitude);
             Marker m = mMap.addMarker(new MarkerOptions().position(latLng)
-                    .title(String.format("%s\n%.00f | %.00f", source.name, latLng.latitude, latLng.longitude)));
+                    .title(String.format(Locale.US, "%s\n%.00f | %.00f", source.name, latLng.latitude, latLng.longitude)));
             m.setTag(source);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         }

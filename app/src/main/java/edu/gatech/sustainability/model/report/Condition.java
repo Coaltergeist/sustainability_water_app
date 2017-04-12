@@ -2,6 +2,7 @@ package edu.gatech.sustainability.model.report;
 
 /**
  * Created by Paul on 4/4/2017.
+ * Water condition
  */
 
 public class Condition {

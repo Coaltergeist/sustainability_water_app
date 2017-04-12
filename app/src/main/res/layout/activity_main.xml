@@ -18,7 +18,7 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
-        android:text="Logout"
+        android:text="@string/logout"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:id="@+id/button"
@@ -30,7 +30,7 @@
         android:layout_marginBottom="16dp" />
 
     <Button
-        android:text="Profile"
+        android:text="@string/profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/viewProfileButton"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:text="Start Report"
+        android:text="@string/startReport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/waterReport"
@@ -53,7 +53,7 @@
         android:layout_marginLeft="16dp" />
 
     <Button
-        android:text="View Map"
+        android:text="@string/viewMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/viewMapButton"
@@ -69,7 +69,7 @@
         android:id="@+id/submitQualityReport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quality Report"
+        android:text="@string/qualityReport"
         android:onClick="submitQualityReport"
         android:layout_marginTop="13dp"
         app:layout_constraintTop_toBottomOf="@+id/waterReport"
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="viewSources"
-        android:text="View Sources"
+        android:text="@string/viewSources"
         android:layout_marginRight="41dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="14dp"

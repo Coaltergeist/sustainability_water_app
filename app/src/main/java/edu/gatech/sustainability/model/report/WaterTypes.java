@@ -2,6 +2,7 @@ package edu.gatech.sustainability.model.report;
 
 /**
  * Created by Paul on 4/4/2017.
+ * Type of water
  */
 
 public enum WaterTypes {
@@ -11,9 +12,9 @@ public enum WaterTypes {
     LAKE("Lake"),
     SPRING("Spring"),
     OTHER("Other");
-    private String type;
+    private final String type;
 
-    private WaterTypes(String type) {
+    WaterTypes(String type) {
         this.type = type;
     }
 

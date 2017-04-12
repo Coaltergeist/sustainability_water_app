@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,12 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.gatech.sustainability.model.report.Condition;
-import edu.gatech.sustainability.model.report.ConditionTypes;
-import edu.gatech.sustainability.model.report.QualityReportCondition;
-import edu.gatech.sustainability.model.report.WaterTypes;
-import edu.gatech.sustainability.model.sources.Coordinates;
-import edu.gatech.sustainability.model.sources.CurrentData;
 import edu.gatech.sustainability.model.user.UserType;
 import edu.gatech.sustainability.model.report.WaterReport;
 import edu.gatech.sustainability.model.user.User;
@@ -36,17 +31,17 @@ public class MainActivity extends AppCompatActivity {
 
     public static Map<Integer, User> userSet = new HashMap<>();
     public static User currentUser;
-    public static List<WaterReport> waterReportList = new ArrayList<>();
+    public static final List<WaterReport> waterReportList = new ArrayList<>();
     public static List<QualityReport> qualityReportList = new ArrayList<>();
-    public static List<WaterSource> waterSources = new ArrayList<>();
+    public static final List<WaterSource> waterSources = new ArrayList<>();
 
-    static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    public static DatabaseReference userDatabase = database.getReference("Users");
-    public static DatabaseReference reportDatabase = database.getReference("WaterSources");
+    static final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    public static final DatabaseReference userDatabase = database.getReference("Users");
+    public static final DatabaseReference reportDatabase = database.getReference("WaterSources");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       // String key = reportDatabase.push().getKey();
+        // String key = reportDatabase.push().getKey();
         //reportDatabase.child(key)
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -86,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w("loaderror", "loadPost:onCancelled", databaseError.toException());
+                Log.w("load error", "loadPost:onCancelled", databaseError.toException());
             }
         };
         reportDatabase.addValueEventListener(sourceListener);
@@ -94,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Button action for logging out. Clear user and return to splash/login screen
-     * @param view View this was done from
      */
     public void logout(View view) {
         currentUser = null;
@@ -104,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * View user profile and allow them to edit from said view
-     * @param view View this was done from
      */
     public void viewProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
@@ -113,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Show the map of water reports
-     * @param view View this was done from
      */
     public void showMap(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
@@ -122,13 +114,12 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Start a report
-     * @param view View this was done from
      */
     public void startReport(View view) {
         Intent intent = new Intent(this, ReportActivity.class);
         intent.putExtra("reportNum", waterReportList.size());
-        if(waterReportList.size() > 0) {
-            for(int k = 0; k < waterReportList.size(); k++) {
+        if (waterReportList.size() > 0) {
+            for (int k = 0; k < waterReportList.size(); k++) {
                 intent.putExtra("report" + k, waterReportList.get(k).toString());
             }
         }
@@ -137,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Submit a quality report
-     * @param view View this was done from
      */
     public void submitQualityReport(View view) {
         if (waterSources.isEmpty()) {
@@ -155,22 +145,17 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Show reports
-     * @param view View this was done from
      */
     public void showReports(View view) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < waterReportList.size(); i++) {
-           sb.append((waterReportList.get(i)).toString() + "\n");
+            sb.append((waterReportList.get(i)).toString()).append("\n");
         }
         reportDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snap: dataSnapshot.getChildren()) {
+                for (DataSnapshot snap : dataSnapshot.getChildren()) {
                     Log.e("key", snap.getKey());
-                    String key = snap.getKey();
-                    String name = (String) snap.child("name").getValue();
-                    String discoverer = (String) snap.child("discoveredBy").getValue();
-
                 }
             }
 
@@ -190,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Show source view
-     * @param view View this was done from
      */
     public void viewSources(View view) {
         Intent intent = new Intent(this, SourcesActivity.class);

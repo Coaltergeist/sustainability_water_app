@@ -1,22 +1,15 @@
 package edu.gatech.sustainability;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.View;import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Map;
 
 import edu.gatech.sustainability.model.user.User;
 import edu.gatech.sustainability.model.user.UserType;
@@ -31,15 +24,12 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    System.out.println("Logged in");
-                } else {
-                   System.out.println("Logged out");
-                }
+        mAuthListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                System.out.println("Logged in");
+            } else {
+               System.out.println("Logged out");
             }
         };
         super.onCreate(savedInstanceState);
@@ -67,7 +57,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     /**
      * Registration method
-     * @param view Originating view
      */
     public void register(View view) {
         String username = ((EditText) findViewById(R.id.usernameText)).getText().toString();
@@ -118,35 +107,18 @@ public class RegistrationActivity extends AppCompatActivity {
         //MainActivity.userSet.put(user.getUserId(), user);
 
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                .addOnCompleteListener(this, task -> {
 
-                        if (!task.isSuccessful()) {
-                            showFailedRegistration();
-                            System.out.println(task.getException());
-                        } else {
-                            showSuccessfulRegistration();
-                            user.setUserId(task.getResult().getUser().getUid());
-                            MainActivity.userDatabase.child(task.getResult().getUser().getUid())
-                                    .setValue(user);
-                        }
-
+                    if (!task.isSuccessful()) {
+                        showFailedRegistration();
+                    } else {
+                        showSuccessfulRegistration();
+                        user.setUserId(task.getResult().getUser().getUid());
+                        MainActivity.userDatabase.child(task.getResult().getUser().getUid())
+                                .setValue(user);
                     }
+
                 });
-        /*MainActivity.firebase.createUser("bobtony@firebase.com", "correcthorsebatterystaple",
-                new Firebase.ValueResultHandler<Map<String, Object>>() {
-            @Override
-            public void onSuccess(Map<String, Object> result) {
-                System.out.println("Successfully created user account with uid: " + result.get("uid"));
-                showSuccessfulRegistration();
-            }
-            @Override
-            public void onError(FirebaseError err) {
-                System.out.println(err);
-                showFailedRegistration();
-            }
-        });*/
 
     }
 
@@ -169,16 +141,14 @@ public class RegistrationActivity extends AppCompatActivity {
      * @throws IllegalArgumentException Password check fails
      * @param password Password from password field
      * @param confirm Password confirmation from confirmation field
-     * @return True if pass
      */
-    private boolean passwordCheck(String password, String confirm) throws IllegalArgumentException {
+    private void passwordCheck(String password, String confirm) throws IllegalArgumentException {
         if (password.length() < 6) {
             throw new IllegalArgumentException("Password needs to be at least 6 characters");
         }
         if (!password.equals(confirm)) {
             throw new IllegalArgumentException("Passwords do not match");
         }
-        return true;
     }
 
     /**
@@ -210,10 +180,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
     /**
      * When the user taps the cancel button, go back to login view
-     * @param view Originating view
      */
     public void cancelToLogin(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
 }

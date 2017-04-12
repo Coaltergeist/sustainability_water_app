@@ -6,6 +6,7 @@ import com.google.firebase.database.PropertyName;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import edu.gatech.sustainability.MainActivity;
 import edu.gatech.sustainability.model.report.QualityReport;
@@ -13,9 +14,11 @@ import edu.gatech.sustainability.model.report.WaterReport;
 
 /**
  * Created by paul on 4/4/2017.
+ * Water source model. Contains info on a location
  */
 
 public class WaterSource implements Serializable {
+    private static final long serialVersionUID = 2855283883592868005L;
     @Exclude
     private String sourceId;
 
@@ -78,7 +81,7 @@ public class WaterSource implements Serializable {
 
     /**
      * Add a water report and update the database
-     * @param report
+     * @param report Report to add to database
      */
     public void addWaterReport(WaterReport report) {
         waterReports.add(report);
@@ -88,7 +91,7 @@ public class WaterSource implements Serializable {
     @Override
     public String toString() {
         if (name == null || name.isEmpty()) {
-            return String.format("%.00f | %.00f", coordinates.latitude, coordinates.longitude);
+            return String.format(Locale.US, "%.00f | %.00f", coordinates.latitude, coordinates.longitude);
         }
         return name;
     }

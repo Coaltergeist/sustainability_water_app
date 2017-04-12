@@ -2,6 +2,7 @@ package edu.gatech.sustainability.model.user;
 
 /**
  * Created by Paul on 2/22/2017.
+ * UserType model
  */
 
 public enum UserType {
@@ -12,7 +13,7 @@ public enum UserType {
 
     private final String type;
 
-    private UserType(String type) {
+    UserType(String type) {
         this.type = type;
     }
 

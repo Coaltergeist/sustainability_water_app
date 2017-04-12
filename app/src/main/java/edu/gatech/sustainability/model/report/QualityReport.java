@@ -4,12 +4,12 @@ import com.google.firebase.database.PropertyName;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
-
-import edu.gatech.sustainability.MainActivity;
 
 /**
  * Created by Paul on 3/27/2017.
+ * Quality report model
  */
 
 public class QualityReport {
@@ -96,7 +96,7 @@ public class QualityReport {
     @Override
     public String toString() {
         Date date = new Date(this.date * 1000);
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy h:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy h:mm a", Locale.US);
         sdf.setTimeZone(TimeZone.getDefault());
         String formattedDate = sdf.format(date);
         if (this.condition == null)

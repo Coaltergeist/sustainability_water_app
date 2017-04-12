@@ -1,18 +1,17 @@
 package edu.gatech.sustainability.model.report;
 
-/**
- * Created by coalt on 3/2/2017.
- */
 import com.google.firebase.database.PropertyName;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import edu.gatech.sustainability.MainActivity;
 
 public class WaterReport implements Serializable{
+    private static final long serialVersionUID = 4243488023753902823L;
     @PropertyName("Condition")
     public Condition condition;
     // Epoch of date in seconds
@@ -67,7 +66,7 @@ public class WaterReport implements Serializable{
     @Override
     public String toString() {
         Date date = new Date(this.date * 1000);
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy h:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy h:mm a", Locale.US);
         sdf.setTimeZone(TimeZone.getDefault());
         String formattedDate = sdf.format(date);
         return formattedDate + " | " + condition.toString();
