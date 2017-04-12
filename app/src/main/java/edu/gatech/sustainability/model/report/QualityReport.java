@@ -15,8 +15,6 @@ import java.util.TimeZone;
 public class QualityReport {
 
     private String id;
-    @PropertyName("userID")
-    private String userId;
     @PropertyName("overallCondition")
     private QualityReportCondition condition;
     @PropertyName("contaminantPPM")
@@ -30,7 +28,6 @@ public class QualityReport {
     }
     public QualityReport(String userId, QualityReportCondition condition, double contPpm, double virPpm) {
         // this.id = reportId;
-        this.userId = userId;
         this.condition = condition;
         this.contPpm = contPpm;
         this.virPpm = virPpm;

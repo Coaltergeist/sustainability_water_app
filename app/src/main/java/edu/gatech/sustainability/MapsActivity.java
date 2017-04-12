@@ -20,8 +20,6 @@ public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener {
 
-    private GoogleMap mMap;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,15 +46,14 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        mMap.setOnMarkerClickListener(this);
+        googleMap.setOnMarkerClickListener(this);
 
         for (WaterSource source : MainActivity.waterSources) {
             LatLng latLng = new LatLng(source.coordinates.latitude, source.coordinates.longitude);
-            Marker m = mMap.addMarker(new MarkerOptions().position(latLng)
+            Marker m = googleMap.addMarker(new MarkerOptions().position(latLng)
                     .title(String.format(Locale.US, "%s\n%.00f | %.00f", source.name, latLng.latitude, latLng.longitude)));
             m.setTag(source);
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         }
     }
 

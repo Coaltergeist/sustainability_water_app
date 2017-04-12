@@ -11,10 +11,7 @@ public enum UserType {
     MANAGER("Manager"),
     ADMINISTRATOR("Admin");
 
-    private final String type;
-
     UserType(String type) {
-        this.type = type;
     }
 
     public static UserType fromString(String s) {
