@@ -73,7 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
         MainActivity.currentUser.setPhoneNumber(((EditText) findViewById(R.id.phoneNumberText)).getText().toString());
         MainActivity.userDatabase.child(MainActivity.currentUser.getUserId())
                 .setValue(MainActivity.currentUser);
-        backToMain();
+        backToMain(view);
     }
 
     /**
