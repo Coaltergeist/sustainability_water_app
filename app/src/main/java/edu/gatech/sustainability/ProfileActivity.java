@@ -79,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
     /**
      * Go back to main screen
      */
-    public void backToMain() {
+    public void backToMain(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
