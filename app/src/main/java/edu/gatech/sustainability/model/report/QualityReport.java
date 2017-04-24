@@ -22,16 +22,25 @@ public class QualityReport {
     @PropertyName("virusPPM")
     private double virPpm;
     private long date;
+    private String userId;
 
     public QualityReport() {
 
     }
     public QualityReport(String userId, QualityReportCondition condition, double contPpm, double virPpm) {
-        // this.id = reportId;
+        this.userId = userId;
         this.condition = condition;
         this.contPpm = contPpm;
         this.virPpm = virPpm;
         this.date = System.currentTimeMillis() / 1000;
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getId() {
