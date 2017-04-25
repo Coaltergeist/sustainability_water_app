@@ -60,6 +60,7 @@ public class WaterSource implements Serializable {
      * Get the ID for this water source
      * @return Water Source ID
      */
+    @Exclude
     public String getSourceId() {
         return this.sourceId;
     }
@@ -68,6 +69,7 @@ public class WaterSource implements Serializable {
      * Set the ID for this water source
      * @param sourceId Water Source ID
      */
+    @Exclude
     public void setSourceId(String sourceId) { this.sourceId = sourceId; }
 
     /**
@@ -76,7 +78,7 @@ public class WaterSource implements Serializable {
      */
     public void addQualityReport(QualityReport qualityReport) {
         waterPurityReports.add(qualityReport);
-        MainActivity.reportDatabase.child(this.getSourceId()).child("WaterPurityReports").setValue(waterPurityReports);
+        MainActivity.reportDatabase.child(this.getSourceId()).child("WaterPurityReports").push().setValue(qualityReport);
     }
 
     /**
@@ -85,7 +87,7 @@ public class WaterSource implements Serializable {
      */
     public void addWaterReport(WaterReport report) {
         waterReports.add(report);
-        MainActivity.reportDatabase.child(this.getSourceId()).child("WaterReports").setValue(waterReports);
+        MainActivity.reportDatabase.child(this.getSourceId()).child("WaterReports").push().setValue(report);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package edu.gatech.sustainability.model.report;
 
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.PropertyName;
 
 import java.text.SimpleDateFormat;
@@ -35,10 +36,12 @@ public class QualityReport {
         this.date = System.currentTimeMillis() / 1000;
     }
 
+    @PropertyName("userID")
     public String getUserId() {
         return this.userId;
     }
 
+    @PropertyName("userID")
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -47,6 +50,7 @@ public class QualityReport {
         return this.id;
     }
 
+    @PropertyName("overallCondition")
     public QualityReportCondition getCondition() {
         return condition;
     }
@@ -55,6 +59,7 @@ public class QualityReport {
      * Set condition
      * @param condition Condition to set
      */
+    @PropertyName("overallCondition")
     public void setCondition(QualityReportCondition condition) {
         this.condition = condition;
     }
@@ -63,6 +68,7 @@ public class QualityReport {
      * Get contaminant PPM
      * @return Contaminant PPM
      */
+    @PropertyName("contaminantPPM")
     public double getContPpm() {
         return contPpm;
     }
@@ -71,6 +77,7 @@ public class QualityReport {
      * Set contaminant PPM
      * @param contPpm Contaminant PPM
      */
+    @PropertyName("contaminantPPM")
     public void setContPpm(double contPpm) {
         this.contPpm = contPpm;
     }
@@ -79,6 +86,7 @@ public class QualityReport {
      * Get virus PPM
      * @return Virus PPM
      */
+    @PropertyName("virusPPM")
     public double getVirPpm() {
         return virPpm;
     }
@@ -87,6 +95,7 @@ public class QualityReport {
      * Set virus PPM
      * @param virPpm Virus PPM
      */
+    @PropertyName("virusPPM")
     public void setVirPpm(double virPpm) {
         this.virPpm = virPpm;
     }
